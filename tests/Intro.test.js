@@ -1,10 +1,10 @@
 // __tests__/Intro-test.js
 import React from 'react';
-import { View } from 'react-native';
+import App from '../App';
 
 import renderer from 'react-test-renderer';
 
 test('renders correctly', () => {
-  const tree = renderer.create(<View />).toJSON();
+  const tree = renderer.create(<App />).toJSON();
   expect(tree).toMatchSnapshot();
 });
