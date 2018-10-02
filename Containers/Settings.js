@@ -11,7 +11,7 @@ export default class Settings extends React.Component {
       <View style={styles.container}>
         <Text>Register your pedometer</Text>
 
-        <PedometerSettings startDate={this.props.startDate}/>
+        <PedometerSettings startDate={this.props.startDate} updateGlobalSteps={this.props.updateGlobalSteps}/>
       </View>
     );
   }

@@ -1,12 +1,33 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Settings from './Containers/Settings.js';
+
 export default class App extends React.Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = { startDate: new Date(), globalStepCount: 0 }
+  }
+
+  updateGlobalSteps(val){
+    console.log("heyo", val);
+    this.setState({ globalStepCount: val });
+  }
+
+  componentDidUpdate(){
+    console.log(this.state.globalStepCount);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Settings startDate={this.state.startDate} updateGlobalSteps={this.updateGlobalSteps}/>
+
+        <Text>Global amount of steps are: {this.state.globalStepCount}</Text>
       </View>
+
     );
   }
 }

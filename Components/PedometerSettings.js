@@ -57,15 +57,16 @@ export default class PedometerSettings extends React.Component {
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
   async getGlobalSteps(){
-    //console.log(start, end);
 
+    // Defines the proper dates
     const startDate = this.props.startDate;
     const endDate = new Date();
     const result = await Pedometer.getStepCountAsync(startDate, endDate);
 
-    console.log(startDate, '\n', endDate);
-
+    console.log("Updating");
+    // Sets local state for steps
     this.setState({ globalStepCount: result.steps });
+    {this.props.updateGlobalSteps(this.state.globalStepCount)};
     Alert.alert('Pedometer result', `Number of global steps: ${this.state.globalStepCount}`);
   }
 
