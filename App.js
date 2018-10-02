@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text, Button, StatusBar } from 'react-native';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './src/screens/HomeScreen';
@@ -8,11 +7,7 @@ import SettingScreen from './src/screens/SettingScreen';
 
 class App extends React.Component {
   render() {
-    return(
-      <View>
-        <HomeScreen />
-      </View>
-    )
+    <App />
   }
 }
 
