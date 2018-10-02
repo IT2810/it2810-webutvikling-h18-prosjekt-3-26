@@ -21,7 +21,10 @@
     "react-navigation": "^2.17.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "flow-bin": "^0.82.0",
+=======
+>>>>>>> master
     "jest-expo": "30.0.0"
   }
 }
