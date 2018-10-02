@@ -2,7 +2,12 @@ language: node_js
 sudo: false
 node_js:
   - "node"
+cache:
+  yarn: true
+  directories:
+    - node_modules
 install:
-  - npm install
+  - yarn install
 script:
-  - npm test
+  - yarn run lint
+  - yarn run travisTest
