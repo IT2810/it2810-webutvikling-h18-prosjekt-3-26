@@ -1,17 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Pedometer } from 'expo';
 import PedometerSettings from './../Components/PedometerSettings.js'
 
-
+// Test Settings class
 export default class Settings extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Register your pedometer</Text>
 
-        <PedometerSettings startDate={this.props.startDate} updateGlobalSteps={this.props.updateGlobalSteps}/>
+        <Text>Register your pedometer</Text>
+        <PedometerSettings startDate={this.props.startDate} updateAvailability={this.props.updateAvailability} updateGlobalSteps={this.props.updateGlobalSteps}/>
       </View>
     );
   }

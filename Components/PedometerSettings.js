@@ -37,6 +37,9 @@ export default class PedometerSettings extends React.Component {
     });
 
     this.setState({ activated: true });
+
+    // Updates global state in App
+    {this.props.updateAvailability(true)};
     console.log("Setting activated");
   }
 
@@ -48,6 +51,9 @@ export default class PedometerSettings extends React.Component {
     }
 
     this.setState({ activated: false });
+
+    // Updates global state in App
+    {this.props.updateAvailability(false)};
     console.log("Clearing activated");
   }
 
@@ -65,6 +71,7 @@ export default class PedometerSettings extends React.Component {
     {this.props.updateGlobalSteps(this.state.globalStepCount)};*/
 
 
+    // Updates global steps and sends to App.
     this.setState({ globalStepCount: steps });
     {this.props.updateGlobalSteps(steps)};
     console.log("Pedometer updated globally to", steps);
@@ -73,7 +80,7 @@ export default class PedometerSettings extends React.Component {
   render() {
     return (
 
-      <ScrollView style={{ padding: 10, backgroundColor: "#a3a3a3", margin: 5 }}>
+      <ScrollView style={{ padding: 10, margin: 5 }}>
         {this.state.activated !== false ? <Text>Du har aktivert pedometeret i applikasjonen</Text> : <Text>Du har ikke aktivert pedometeret i applikasjonen</Text>}
 
         <Button
@@ -85,7 +92,7 @@ export default class PedometerSettings extends React.Component {
           title="Deactivate pedometer"
         />
       </ScrollView>
-      
+
     );
   }
 }
