@@ -9,14 +9,38 @@ export default class EditObject extends React.Component {
             edit: false,
         }
     }
-    // This takes an object as prop
+    /* 
+    This takes an object and excludable fields and creates a way to edit these fields.
+    */
+
+    createEditableObject = () => {
+        const obj = {};
+        for (const key in this.props.propObject) {
+            if (this.props.propObject.hasOwnProperty(key) && 'exclude' in this.props &&  !(key in this.props.exclude)) {
+                obj[key] = this.props.propObject.key;
+            }
+        }
+    }
+
+    createDisplayFields = () => {
+        const display = [];
+        console.log('propObject: ',JSON.stringify(this.props.propObject));
+        for (const key in this.props.propObject) {
+            if (this.props.propObject.hasOwnProperty(key)) {
+                console.log('key: ',key);
+                display.push(<Text key={key}>{this.props.propObject.key}</Text>);
+            }
+        }
+        console.log(display);
+        return display;
+    }
 
     editButton = () => {
         this.setState({edit:true});
     }
 
-    saveButton = () => {
-        this.props.exercise.edit(this.state['editName'],this.state['editWeight'], this.state['editRep']);
+    saveButton = (editable) => {
+        this.props.propObject.edit(...editable);
         this.setState({edit:false});
     }
     
@@ -38,9 +62,7 @@ export default class EditObject extends React.Component {
         console.log('default render props ',this.props);
         return (
             <View>
-                <Text>{this.props.exercise.name}</Text>
-                <Text>{this.props.exercise.weight}</Text>
-                <Text>{this.props.exercise.repetitions}</Text>
+                {this.createDisplayFields()}
                 <Button title='edit' onPress={() => this.editButton()}></Button>
             </View>
         );
