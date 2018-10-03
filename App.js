@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Navigator from './src/components/Navigator/CreateNavigator';
 
 import Settings from './Containers/Settings.js';
 import Home from './Containers/Home.js';
@@ -31,21 +31,8 @@ export default class App extends React.Component {
   render() {
     return (
 
-      <View style={styles.container}>
-        <Settings startDate={this.state.startDate} updateAvailability={this.updateAvailability} updateGlobalSteps={this.updateGlobalSteps}/>
-        <Home startDate={this.state.startDate} pedAvailable={this.state.pedAvailable} globalStepCount={this.state.globalStepCount}/>
-
-      </View>
+      <Navigator startDate={this.state.startDate} pedAvailable={this.state.pedAvailable} globalStepCount={this.state.globalStepCount} updateAvailability={this.updateAvailability} updateGlobalSteps={this.updateGlobalSteps}/>
 
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
