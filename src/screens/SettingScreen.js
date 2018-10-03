@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, } from 'react-native';
 
+import PedometerSettings from './../../Components/PedometerSettings.js'
 
 
 class SettingScreen extends React.Component {
@@ -8,22 +9,11 @@ class SettingScreen extends React.Component {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', }}>
           <Text>SettingScreen</Text>
-          <Button
-            title="Go to Home Screen"
-            onPress={() => {
-              this.props.navigation.navigate('Home')
-            }}
-          />
-          <Text>Back to Workouts dog</Text>
-          <Button
-            title="Go to Workouts"
-            onPress={() => {
-              this.props.navigation.navigate('Workouts')
-            }} 
-          />
+          <Text>Register your pedometer</Text>
+          <PedometerSettings startDate={this.props.startDate} updateAvailability={this.props.updateAvailability} updateGlobalSteps={this.props.updateGlobalSteps}/>
         </View>
-      );  
-    }  
-  }   
-  
+      );
+    }
+  }
+
 export default SettingScreen;

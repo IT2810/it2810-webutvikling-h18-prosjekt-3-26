@@ -9,14 +9,23 @@
 
   export default createMaterialBottomTabNavigator(
     {
+      // All below are supposed to pass props to the screens.
       Home: {
-        screen: HomeScreen,
+        screen: props => <HomeScreen {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor, focused }) => (
             <Icon size={23} name={(focused ? 'ios-home' : 'ios-home-outline')} style={{ color: tintColor }} />
-          )
-        }
+          )/*,
+          tabBarOnPress: ({navigation}) => {
+            navigation.setParam({ startDate: this.props.startDate });
+          }*/
+        }/*,
+        screenProps: {
+          { startDate: this.props.startDate },
+          { pedAvailable: this.props.pedAvailable },
+          { globalStepCount: this.props.globalStepCount }
+        }*/
       },
       Workout: {
         screen: WorkoutScreen,

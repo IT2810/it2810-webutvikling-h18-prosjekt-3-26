@@ -28,7 +28,7 @@ export default class GlobalPedometer extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.7,
+    flex: 1,
     backgroundColor: 'inherit',
     alignItems: 'center',
     justifyContent: 'center',
