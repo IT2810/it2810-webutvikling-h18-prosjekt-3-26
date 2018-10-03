@@ -4,9 +4,6 @@ import { Alert, ScrollView, Text, Button } from 'react-native';
 import { Pedometer } from 'expo';
 
 export default class PedometerSettings extends React.Component {
-  static navigationOptions = {
-    title: 'Pedometer settings',
-  };
 
   constructor(props){
     super(props);
@@ -28,16 +25,15 @@ export default class PedometerSettings extends React.Component {
   // Checks the users Google Fit for global steps and updates stat
   async checkAvailability(){
     const result = await Pedometer.isAvailableAsync();
+
     this.setState({available: result});
-
-
     console.log("Checking availability");
   }
 
   // Activates recording of step count
   async activatePedometer(){
     this._listener = Pedometer.watchStepCount(data => {
-      this.setState({ globalStepCount: data.steps });
+      this.getGlobalSteps(data.steps);
     });
 
     this.setState({ activated: true });
@@ -56,18 +52,22 @@ export default class PedometerSettings extends React.Component {
   }
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
-  async getGlobalSteps(){
+  async getGlobalSteps(steps){
 
     // Defines the proper dates
-    const startDate = this.props.startDate;
+    /*const startDate = this.props.startDate;
     const endDate = new Date();
     const result = await Pedometer.getStepCountAsync(startDate, endDate);
 
-    console.log("Updating");
+    console.log("Updating with value: ", result);
     // Sets local state for steps
     this.setState({ globalStepCount: result.steps });
-    {this.props.updateGlobalSteps(this.state.globalStepCount)};
-    Alert.alert('Pedometer result', `Number of global steps: ${this.state.globalStepCount}`);
+    {this.props.updateGlobalSteps(this.state.globalStepCount)};*/
+
+
+    this.setState({ globalStepCount: steps });
+    {this.props.updateGlobalSteps(steps)};
+    console.log("Pedometer updated globally to", steps);
   }
 
   render() {
@@ -76,11 +76,6 @@ export default class PedometerSettings extends React.Component {
       <ScrollView style={{ padding: 10, backgroundColor: "#a3a3a3", margin: 5 }}>
         {this.state.activated !== false ? <Text>Du har aktivert pedometeret i applikasjonen</Text> : <Text>Du har ikke aktivert pedometeret i applikasjonen</Text>}
 
-
-        <Button // This will not be necessary, as global steps will be implemented into Home instead
-          onPress={() => this.getGlobalSteps()}
-          title="Get global steps count"
-        />
         <Button
           onPress={() => this.activatePedometer()}
           title="Activate pedometer"
@@ -89,9 +84,8 @@ export default class PedometerSettings extends React.Component {
           onPress={() => this.deactivatePedometer()}
           title="Deactivate pedometer"
         />
-
-        {this.state.stepCount !== 0 ? <Text>Total steps {this.state.globalStepCount}</Text> : <Text>You have not walked at all today</Text>}
       </ScrollView>
+      
     );
   }
 }

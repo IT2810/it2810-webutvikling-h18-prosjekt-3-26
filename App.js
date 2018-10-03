@@ -8,16 +8,12 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = { startDate: new Date(), globalStepCount: 0 }
+    this.state = { startDate: new Date(), globalStepCount: 0 };
+    this.updateGlobalSteps = this.updateGlobalSteps.bind(this);
   }
 
   updateGlobalSteps(val){
-    console.log("heyo", val);
     this.setState({ globalStepCount: val });
-  }
-
-  componentDidUpdate(){
-    console.log(this.state.globalStepCount);
   }
 
   render() {
