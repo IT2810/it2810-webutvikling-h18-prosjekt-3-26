@@ -1,51 +1,18 @@
 import React from 'react';
-import { TabNavigator, TabBarTop } from 'react-navigation';
+import { CreateMaterialTopbar, createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './src/screens/HomeScreen';
-import WorkoutScreen from './src/screens/WorkoutScreen';
 import SettingScreen from './src/screens/SettingScreen';
+import WorkoutScreen from './src/screens/WorkoutScreen';
+import CreateNavigator from './src/CreateNavigator';
+import { View, Text, Button, StatusBar } from 'react-native';
+import Navigator from './src/CreateNavigator';
 
 class App extends React.Component {
   render() {
-    <App />
+    return(
+      <Navigator />
+    )
   }
 }
-
-export default TabNavigator(
-  {
-    Home: { screen: HomeScreen },
-    Workouts: { screen: WorkoutScreen },
-    Settings: { screen: SettingScreen
-    }
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
-        const { routeName } = navigation.state;
-        let iconName;
-          if (routeName === 'Home') {
-            iconName = `ios-home${focused ? '' : '-outline'}`;
-          } else if (routeName === 'Workouts') {
-            iconName = `ios-stats${focused ? '' : '-outline'}`;
-          } else if (routeName === 'Settings') {
-            iconName = `ios-options${focused ? '' : '-outline'}`;
-          }
-        return <Ionicons name={iconName} size={24} color={tintColor} />;
-      },
-    }),
-
-    tabBarComponent: TabBarTop,
-    tabBarPosition: 'top',
-    tabBarOptions: {
-      showIcon: 'true',
-      indicatorStyle: {
-      backgroundColor: 'orange'
-    },
-      activeTintColor: 'white',
-      inactiveTintColor: 'lightgray',
-    },
-    animationEnabled: true,
-    swipeEnabled: true,
-    
-  }
-);
+export default App;

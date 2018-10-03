@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StatusBar } from 'react-native';
-import SettingScreen from './SettingScreen';
 
 class WorkoutScreen extends React.Component {
     render() {
@@ -13,7 +12,7 @@ class WorkoutScreen extends React.Component {
               this.props.navigation.navigate('Home')
             }}
           />
-          <Text> Yo you wanna see something funny</Text>
+          <Text> Fix yo Settings dawg</Text>
           <Button
             title="Go to Settings"
             onPress={() => {
@@ -25,4 +24,4 @@ class WorkoutScreen extends React.Component {
     }  
   }   
 
-  export default SettingScreen;
+  export default WorkoutScreen;

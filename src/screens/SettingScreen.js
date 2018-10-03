@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, Button, StatusBar } from 'react-native';
+import { View, Text, Button, } from 'react-native';
+
+
 
 class SettingScreen extends React.Component {
     render() {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', }}>
-          <Text>Lolscreen</Text>
+          <Text>SettingScreen</Text>
           <Button
             title="Go to Home Screen"
             onPress={() => {

@@ -1,21 +1,35 @@
 import React from 'react';
-import { View, Text, Button, StatusBar } from 'react-native';
+import { View, Text, Button, StatusBar, FlatList, StyleSheet } from 'react-native';
 
 class HomeScreen extends React.Component {
     render() {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', }}>
+        <View>
         <StatusBar hidden />
-          <Text>Welcome to the best website on the web.</Text>
-          <Button
-            title="Go to My Workouts"
-            onPress={() => {
-              this.props.navigation.navigate('Workouts')
-            }}
+        <FlatList 
+          data={[{key: 'a'}, {key: 'b'}, {key: 'c'}]}
+          style={styles.container}
+          numColumns={3}
+          renderItem={({item}) => <Text>{item.key}</Text>} 
           />
         </View>
       );
     }  
   }
 
+const styles=StyleSheet.create({
+  container: {
+    backgroundColor: 'red',
+    flex: 1,
+    padding: 40,
+  }
+})
   export default HomeScreen;
+
+            
+          /*<Button
+            title="Go to My Workouts"
+            onPress={() => {
+              this.props.navigation.navigate('Workouts')
+            }}
+          />*/
