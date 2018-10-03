@@ -4,7 +4,7 @@ export default class Workout {
         this.date = new Date();
         this.exercises = [];
         this.note = '';
-        this.title = 'New Exercise';
+        this.title = 'New Workout';
     }
 
     // Allow user to set date on a workout. 
@@ -16,6 +16,7 @@ export default class Workout {
     // Add exercise to this workout.
     addExercise = (exercise) => {
         this.exercises.push(exercise);
+        console.log(this.date.getDate());
     }
 
     // Remove exercise from this workout
