@@ -3,9 +3,9 @@
   import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
   import Icon from 'react-native-vector-icons/Ionicons';
 
-  import HomeScreen from './screens/HomeScreen';
-  import WorkoutScreen from './screens/WorkoutScreen';
-  import SettingsScreen  from './screens/SettingScreen';
+  import HomeScreen from '../../screens/HomeScreen';
+  import WorkoutScreen from '../../screens/WorkoutScreen';
+  import SettingsScreen  from '../../screens/SettingScreen';
 
   export default createMaterialBottomTabNavigator(
     {
