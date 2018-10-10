@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeCalendar from "../components/Calendar/HomeCalendar";
-import Agenda from "../components/Calendar/Agenda";
+import DisplayQuote from "../components/Quoter/DisplayQuote";
 
 
 class HomeScreen extends React.Component {
@@ -31,8 +31,8 @@ class HomeScreen extends React.Component {
               <Text>??????</Text>
               </Col>
               </Row> 
-              <Row size={5}>
-            <Text>Life is a journey</Text>
+              <Row size={7} style={{backgroundColor: 'green'}}>
+            <DisplayQuote />
             </Row>
             <Row size={30}>
               <Col size={80} style={{backgroundColor: 'white'}}>
