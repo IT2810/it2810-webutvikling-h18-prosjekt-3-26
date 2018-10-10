@@ -16,25 +16,30 @@ class HomeScreen extends React.Component {
 
             <Row size={17}>
               <Col size={10} style={{backgroundColor: 'pink'}}>  
-              <Text>Notifications</Text>         
+              <Text>Pedometer</Text>         
               </Col>
               <Col size={10} style={{backgroundColor: 'yellow'}}>
-              <Text>Calendar</Text>
-              </Col>
-              <Col size={10} style={{backgroundColor: 'grey'}}>
-              <Text>Something</Text>
+              <Text>Notifications</Text>
               </Col>
             </Row>
+            <Row size={17}>
+              <Col size={10} style={{backgroundColor: 'blue'}}>  
+              <Text>?????</Text>         
+              </Col>
+              <Col size={10} style={{backgroundColor: 'cyan'}}>
+              <Text>??????</Text>
+              </Col>
+              </Row>
 
             <Row size={10}>
-
+            <Text>Life is a journey</Text>
             </Row>
 
             <Row size={30}>
               <Col size={10} style={{backgroundColor: 'black'}}>        
               </Col>
               <Col size={40} style={{backgroundColor: 'white'}}>
-                <Text style={{color:'black'}}>Pedometer</Text>
+                <Text style={{color:'black'}}>Calendar</Text>
               </Col>
               <Col size={10} style={{backgroundColor: 'black'}}>
               </Col>
@@ -50,4 +55,4 @@ const styles=StyleSheet.create({
     fontSize: 24,
   }
 })
-  export default HomeScreen;
+  export default HomeScreen;  
