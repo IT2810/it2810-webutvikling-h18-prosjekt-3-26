@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Button, StatusBar, FlatList, StyleSheet } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { Col, Row, Grid } from "react-native-easy-grid";
+import HomeCalendar from "../components/Calendar/HomeCalendar";
+import Agenda from "../components/Calendar/Agenda";
 
 
 class HomeScreen extends React.Component {
@@ -11,10 +13,9 @@ class HomeScreen extends React.Component {
               <Text style={{color:'white'}}> Next Workout goes here </Text>
             </Row >
             
-            <Row size={10} style={{backgroundColor:'black'}}>
-            </Row>
 
-            <Row size={17}>
+
+            <Row size={14}>
               <Col size={10} style={{backgroundColor: 'pink'}}>  
               <Text>Pedometer</Text>         
               </Col>
@@ -22,26 +23,20 @@ class HomeScreen extends React.Component {
               <Text>Notifications</Text>
               </Col>
             </Row>
-            <Row size={17}>
+            <Row size={14}>
               <Col size={10} style={{backgroundColor: 'blue'}}>  
               <Text>?????</Text>         
               </Col>
               <Col size={10} style={{backgroundColor: 'cyan'}}>
               <Text>??????</Text>
               </Col>
-              </Row>
-
-            <Row size={10}>
+              </Row> 
+              <Row size={5}>
             <Text>Life is a journey</Text>
             </Row>
-
             <Row size={30}>
-              <Col size={10} style={{backgroundColor: 'black'}}>        
-              </Col>
-              <Col size={40} style={{backgroundColor: 'white'}}>
-                <Text style={{color:'black'}}>Calendar</Text>
-              </Col>
-              <Col size={10} style={{backgroundColor: 'black'}}>
+              <Col size={80} style={{backgroundColor: 'white'}}>
+                <HomeCalendar />
               </Col>
             </Row>
           </Grid>
