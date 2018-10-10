@@ -11,7 +11,9 @@ export default class EditObject extends React.Component {
         }
     }
     /* 
-    This takes an object and excludable fields and creates a way to edit these fields.
+    This cpomponent takes an object, excludable fields and creates a way to edit these fields.
+    Exclude is an array of keys that should not be editable. They will still be displaed.
+    ints is an array of keys that should be limited to number only input.
     */
    componentDidMount = () => {
         this.validateObject(this.props);
@@ -19,16 +21,17 @@ export default class EditObject extends React.Component {
 
     validateObject = (props) => {
         if (!('propObject' in props && 'edit' in props.propObject && typeof props.propObject['edit'] === 'function')) {
-            console.error('Object passed to EditObject is lacking an edit function or the parameter propObject is missing');
+            console.error('Object passed to EditObject is lacking an edit function or the parameter propObject is missing. Object will not be rendered.');
             this.setState({error:true});
         }
     }
 
+    // Create a new object with fields that should be converted to input fields
     createEditableObject = () => {
         const obj = {};
         for (const key in this.props.propObject) {
             if (this.props.propObject.hasOwnProperty(key) && typeof this.props.propObject[key] !== 'function' && typeof this.props.propObject[key] !== 'object') {
-                if(!('exclude' in this.props) || 'exclude' in this.props && key !== this.props.exclude) {
+                if(!('exclude' in this.props) || 'exclude' in this.props && this.props.exclude.indexOf(key) === -1) {
                     obj[key] = this.props.propObject[key];
                 }
             }
@@ -36,6 +39,8 @@ export default class EditObject extends React.Component {
         return obj;
     }
 
+    // Iterate through object and find displayable fields, a.k.a not functions or other objects.
+    // Adds text field for each of them.
     createDisplayFields = () => {
         const display = [];
         for (const key in this.props.propObject) {
@@ -46,38 +51,47 @@ export default class EditObject extends React.Component {
         return display;
     }
 
+    // Add input field for every input-able field
     createInputFields = () => {
         const inputs = [];
         const editableObject = this.createEditableObject();
         for (const key in editableObject) {
             if (editableObject.hasOwnProperty(key)) {
                 const stateName = 'edit' + key;
-                inputs.push(<TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                if (!('ints' in this.props) || this.props.ints.indexOf(key) === -1) {
+                    inputs.push(<TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                }
+                else {
+                    inputs.push(<NumericInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                }
             }
         }
         return inputs;
     }
 
+
+    // Toggle conditional rendering
     editButton = () => {
         this.setState({edit:true});
     }
 
+    
     saveButton = () => {
-        const localState = Object.assign(this.state);
+        // Copy state to guarantee immutability
+        const localState = {...this.state};
         const relevantKeys = [];
         Object.keys(localState).map((key) => {
-            if (key.includes('edit')) {
+            if (key.includes('edit') && key !== 'edit') {
                 relevantKeys.push(key);
             }
         });
         const editable = {};
-        console.log(relevantKeys);
         for (const key in relevantKeys) {
-            editable[key] = this.state[key];
+            const strippedKey = relevantKeys[key].replace('edit','');
+            editable[strippedKey] = this.state[relevantKeys[key]];
             
         }
-        console.log('editable ', editable);
-        this.props.propObject.edit(...editable);
+        this.props.propObject.edit({...editable});
         this.setState({edit:false});
     }
     
@@ -89,12 +103,6 @@ export default class EditObject extends React.Component {
             return (
                 <View>
                     {this.createInputFields()}
-                    {/*<TextInput 
-                        onChangeText={(text) => this.setState({editName:text})}
-                        placeholder={''}
-                    />
-                    <NumericInput onChange={(text) => this.setState({editWeight:text})} startNumber={0}/>
-                    <NumericInput onChange={(text) => this.setState({editRep:text})} startNumber={0}/>*/}
                     <Button title='save' onPress={() => this.saveButton()}></Button>
                 </View>
             );
