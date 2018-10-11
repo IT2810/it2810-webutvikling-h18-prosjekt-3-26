@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import ObjectEdit from '../components/ExerciseEdit';
+import ObjectEdit from '../components/EditObject';
 
 
 export default class SingleWorkoutScreen extends React.Component {
@@ -9,7 +9,7 @@ export default class SingleWorkoutScreen extends React.Component {
     createExercise = () => {
         const exercisesWithEdit = [];
         for (const exerciseNr in this.props.workout.exercises) {
-            exercisesWithEdit.push(<ObjectEdit key={exerciseNr} propObject={this.props.workout.exercises[exerciseNr]}/>);
+            exercisesWithEdit.push(<ObjectEdit key={exerciseNr} propObject={this.props.workout.exercises[exerciseNr]} ints={['weight','repetitions']}/>);
         }
         return exercisesWithEdit;
     }
@@ -19,7 +19,7 @@ export default class SingleWorkoutScreen extends React.Component {
         if (this.props.workout) {
             return (
                 <View>
-                    <Text>{this.props.workout.title}</Text>
+                    <ObjectEdit propObject={this.props.workout} exclude={['note']}/>
                     <Text>{JSON.stringify(this.props.workout.date)}</Text>
                     <Text>Exercises:</Text>
                     {exercises || 'No exercises added'}
