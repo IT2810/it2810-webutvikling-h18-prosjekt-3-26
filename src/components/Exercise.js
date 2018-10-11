@@ -5,10 +5,10 @@ export default class Exercise {
         this.repetitions = repetitions;
     }
 
-    // Change any parameter
-    edit = (name, weight, repetitions) => {
-        name ? this.name = name : false;
-        weight ? this.weight = weight : false;
-        repetitions ? this.repetitions = repetitions : false;
+    // Change any parameter from object.
+    edit = (paramObject) => {
+        'name' in paramObject ? this.name = paramObject.name : false;
+        'weight' in paramObject ? this.weight = paramObject.weight : false;
+        'repetitions' in paramObject ? this.repetitions = paramObject.repetitions : false;
     }
 }
