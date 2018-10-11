@@ -12,7 +12,7 @@ export default class EditObject extends React.Component {
     }
     /* 
     This cpomponent takes an object, excludable fields and creates a way to edit these fields.
-    Exclude is an array of keys that should not be editable. They will still be displaed.
+    Exclude is an array of keys that should not be editable. They will still be displayed.
     ints is an array of keys that should be limited to number only input.
     */
    componentDidMount = () => {
@@ -45,7 +45,9 @@ export default class EditObject extends React.Component {
         const display = [];
         for (const key in this.props.propObject) {
             if (this.props.propObject.hasOwnProperty(key) && typeof this.props.propObject[key] !== 'function' && typeof this.props.propObject[key] !== 'object') {
-                display.push(<Text key={key}>{this.props.propObject[key]}</Text>);
+                if(!('exclude' in this.props) || 'exclude' in this.props && this.props.exclude.indexOf(key) === -1) {
+                    display.push(<Text key={key}>{this.props.propObject[key]}</Text>);
+                }
             }
         }
         return display;
