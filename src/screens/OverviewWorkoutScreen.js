@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { getFromStorage } from '../utils/asyncstorageUtils';
+import { View, AsyncStorage } from 'react-native';
+import { getFromStorage, AsyncStorageSupplement } from '../utils/asyncstorageUtils';
 import WorkoutCard from '../components/WorkoutCard';
 
 export default class OverviewWorkoutScreen extends React.Component {
@@ -25,34 +25,49 @@ export default class OverviewWorkoutScreen extends React.Component {
         this.loadWorkoutsFromAsyncStorage();
     }
 
+    removeWorkout = (workout) => {
+        const workouts = this.state.workouts;
+        workouts.splice(workouts.indexOf(workout),1);
+        console.log(workouts);
+        this.setState({ workouts });
+    }
+
     // This function loads all workouts from async storage 
     loadWorkoutsFromAsyncStorage = async () => {
-        let workoutTitles = await getFromStorage('workouts');
-        workoutTitles = JSON.parse(workoutTitles);
+        let workoutTitles = await AsyncStorage.getItem('workouts');
+        workoutTitles ? workoutTitles = JSON.parse(workoutTitles) : workoutTitles;
         console.log('got this from asyncstorage',workoutTitles);
-        const workoutArray = [];
+        const workoutArray = []
         for (const workoutNr in workoutTitles) {
-            console.log('workout',workoutTitles[workoutNr]);
-            let workout = await getFromStorage(workoutTitles[workoutNr]);
-            console.log('workout from storage',workout);
-            workoutArray.push(workout);
+            //console.log('loading workout',workoutTitles[workoutNr]);
+            let workout = await AsyncStorage.getItem(workoutTitles[workoutNr]);
+            //console.log('workout from storage',workout);
+            if (workout) {
+                workout = JSON.parse(workout);
+                workoutArray.push(workout);
+            }
         }
-        console.log(workoutArray);
+
+        console.log('setting state to',workoutArray);
         this.setState({workouts:workoutArray});
     }
 
     // Converts a list of workouts to display cards
     workoutsToCard = () => {
+        //console.log('overview state workouts',this.state.workouts);
         const cards = this.state.workouts.map( workout => {
-            <WorkoutCard workout={workout}/>
+            console.log('making card from',workout);
+            return <WorkoutCard key={workout.title+workout.date} workout={workout} removeWorkout={this.removeWorkout}/>;
         });
+        //console.log('cards',cards);
         return cards;
     }
 
     render() {
+        console.log('Render OverviewWorkoutScreen!');
         return (
             <View>
-              {this.workoutsToCard()}
+              {this.workoutsToCard() || <Text>Found no workouts</Text>}
             </View>
         );
     }
