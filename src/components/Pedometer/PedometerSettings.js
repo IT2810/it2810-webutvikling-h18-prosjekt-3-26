@@ -22,7 +22,7 @@ export default class PedometerSettings extends React.Component {
 
   _listener: { remove: () => void } = null;
 
-  // Checks the users Google Fit for global steps and updates stat
+  // Checks the users Google Fit for availability
   async checkAvailability(){
     const result = await Pedometer.isAvailableAsync();
 

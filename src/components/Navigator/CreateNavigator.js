@@ -7,10 +7,11 @@
   import WorkoutScreen from '../../screens/WorkoutScreen';
   import SettingsScreen  from '../../screens/SettingScreen';
 
-export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
+  // Creates a navigator using an external react navigation framework.
+  export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
     {
       Home: {
-        screen: props => <HomeScreen startDate={home.startDate} pedAvailable={home.pedActivated} globalStepCount={home.globalStepCount} {...props}/>,
+        screen: props => <HomeScreen startDate={home.startDate} pedActivated={home.pedActivated} globalStepCount={home.globalStepCount} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor, focused }) => (

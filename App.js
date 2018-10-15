@@ -25,13 +25,14 @@ export default class App extends React.Component {
     this.setState({ globalStepCount: this.state.prevGlobalStepCount + val });
   }
 
-  // Updates global steps
+  // Updates previous global steps
   updatePrevGlobalSteps(val){
     this.setState({ globalStepCount: val });
     this.setState({ prevGlobalStepCount: val });
   }
 
   render() {
+    // For sending pedometer props to navigator
     var homeProps = {};
     homeProps.startDate = this.state.startDate;
     homeProps.pedActivated = this.state.pedActivated;
