@@ -3,22 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default class GlobalPedometer extends React.Component{
 
-  constructor(props){
-    super(props);
-
-    this.state = { available: false, activated: false};
-  }
 
   render(){
     return(
 
       // Container for the component, dynamic on availability
       <View style={styles.container}>
-        {this.props.pedAvailable !== false ? <Text style={styles.infoText}>Starting {this.props.startDate.getDate()}.{this.props.startDate.getMonth() + 1}.{this.props.startDate.getFullYear()}, your step number is</Text> : <Text style={styles.infoText}>Go to settings to activate global pedometer</Text>}
+        {this.props.pedActivated !== false ? <Text style={styles.infoText}>Starting {this.props.startDate.getDate()}.{this.props.startDate.getMonth() + 1}.{this.props.startDate.getFullYear()}, your step number is</Text> : <Text style={styles.infoText}>Go to settings to activate global pedometer</Text>}
 
         {/* Container for the step number*/}
         <View style={styles.circle}>
-          {this.props.pedAvailable !== false ? <Text style={styles.stepText}>{this.props.globalStepCount}</Text> : false}
+          {this.props.pedActivated !== false ? <Text style={styles.stepText}>{this.props.globalStepCount}</Text> : false}
         </View>
       </View>
 

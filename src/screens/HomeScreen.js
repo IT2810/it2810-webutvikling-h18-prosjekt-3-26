@@ -6,7 +6,6 @@ import GlobalPedometer from './../components/Pedometer/GlobalPedometer.js'
 
 class HomeScreen extends React.Component {
     render() {
-      console.log("Home props",this.props);
       return (
         <View>
           <StatusBar hidden />
@@ -16,7 +15,7 @@ class HomeScreen extends React.Component {
             numColumns={3}
             renderItem={({item}) => <Text>{item.key}</Text>}
             />
-            <GlobalPedometer startDate={this.props.startDate} pedAvailable={this.props.pedAvailable} globalStepCount={this.props.globalStepCount}/>
+            <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
         </View>
       );
     }

@@ -10,7 +10,7 @@
 export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
     {
       Home: {
-        screen: props => <HomeScreen startDate={home.startDate} pedAvailable={home.pedAvailable} globalStepCount={home.globalStepCount} {...props}/>,
+        screen: props => <HomeScreen startDate={home.startDate} pedAvailable={home.pedActivated} globalStepCount={home.globalStepCount} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor, focused }) => (
@@ -28,7 +28,7 @@ export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
         }
       },
       Settings: {
-        screen: props => <SettingsScreen startDate={settings.startDate} updateAvailability={settings.updateAvailability} updateGlobalSteps={settings.updateGlobalSteps} {...props}/>,
+        screen: props => <SettingsScreen startDate={settings.startDate} pedActivated={settings.pedActivated} updateActivated={settings.updateActivated} updateGlobalSteps={settings.updateGlobalSteps} updatePrevGlobalSteps={settings.updatePrevGlobalSteps} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ tintColor, focused }) => (

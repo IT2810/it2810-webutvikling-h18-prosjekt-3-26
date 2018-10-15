@@ -7,34 +7,42 @@ export default class App extends React.Component {
     super(props);
 
     // States for global pedometer
-    this.state = { startDate: new Date(), pedAvailable: false, globalStepCount: 0 };
+    this.state = { startDate: new Date(), pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
 
     // Functions for updating states from global pedometer
-    this.updateAvailability = this.updateAvailability.bind(this);
+    this.updateActivated = this.updateActivated.bind(this);
     this.updateGlobalSteps = this.updateGlobalSteps.bind(this);
+    this.updatePrevGlobalSteps = this.updatePrevGlobalSteps.bind(this);
   }
 
   // Updates availability
-  updateAvailability(val){
-    console.log("heyo");
-    this.setState({ pedAvailable: val });
+  updateActivated(val){
+    this.setState({ pedActivated: val });
   }
 
   // Updates global steps
   updateGlobalSteps(val){
+    this.setState({ globalStepCount: this.state.prevGlobalStepCount + val });
+  }
+
+  // Updates global steps
+  updatePrevGlobalSteps(val){
     this.setState({ globalStepCount: val });
+    this.setState({ prevGlobalStepCount: val });
   }
 
   render() {
     var homeProps = {};
     homeProps.startDate = this.state.startDate;
-    homeProps.pedAvailable = this.state.pedAvailable;
+    homeProps.pedActivated = this.state.pedActivated;
     homeProps.globalStepCount = this.state.globalStepCount;
 
     var settingsProps = {};
     settingsProps.startDate = this.state.startDate;
-    settingsProps.updateAvailability = this.updateAvailability;
+    settingsProps.pedActivated = this.state.pedActivated;
+    settingsProps.updateActivated = this.updateActivated;
     settingsProps.updateGlobalSteps = this.updateGlobalSteps;
+    settingsProps.updatePrevGlobalSteps = this.updatePrevGlobalSteps;
 
     const Nav = Navigator({...homeProps}, {...settingsProps})
 

@@ -8,12 +8,12 @@ export default class PedometerSettings extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = { available: false, activated: false, globalStepCount: 0};
+    this.state = { available: false, activated: this.props.pedActivated};
 
     this.checkAvailability = this.checkAvailability.bind(this);
     this.activatePedometer = this.activatePedometer.bind(this);
     this.deactivatePedometer = this.deactivatePedometer.bind(this);
-    this.getGlobalSteps = this.getGlobalSteps.bind(this);
+    this.setGlobalSteps = this.setGlobalSteps.bind(this);
   }
 
   componentDidMount(){
@@ -27,20 +27,23 @@ export default class PedometerSettings extends React.Component {
     const result = await Pedometer.isAvailableAsync();
 
     this.setState({available: result});
-    console.log("Checking availability");
   }
 
   // Activates recording of step count
   async activatePedometer(){
-    this._listener = Pedometer.watchStepCount(data => {
-      this.getGlobalSteps(data.steps);
-    });
 
-    this.setState({ activated: true });
+    // Records new steps
+    if(!this.props.pedActivated){
+      this._listener = Pedometer.watchStepCount(data => {
+        this.props.updateGlobalSteps(data.steps);
+      });
 
-    // Updates global state in App
-    {this.props.updateAvailability(true)};
-    console.log("Setting activated");
+      this.setGlobalSteps();
+
+      // Updates global state in App
+      this.setState({ activated: true });
+      {this.props.updateActivated(true)};
+    }
   }
 
   // Deactivates recording of step count
@@ -53,28 +56,24 @@ export default class PedometerSettings extends React.Component {
     this.setState({ activated: false });
 
     // Updates global state in App
-    {this.props.updateAvailability(false)};
-    console.log("Clearing activated");
+    {this.props.updateActivated(false)};
   }
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
-  async getGlobalSteps(steps){
+  async setGlobalSteps(){
 
-    // Defines the proper dates
-    /*const startDate = this.props.startDate;
-    const endDate = new Date();
-    const result = await Pedometer.getStepCountAsync(startDate, endDate);
+    const end = new Date();
+    const start = this.props.startDate;
 
-    console.log("Updating with value: ", result);
-    // Sets local state for steps
-    this.setState({ globalStepCount: result.steps });
-    {this.props.updateGlobalSteps(this.state.globalStepCount)};*/
-
-
-    // Updates global steps and sends to App.
-    this.setState({ globalStepCount: steps });
-    {this.props.updateGlobalSteps(steps)};
-    console.log("Pedometer updated globally to", steps);
+    // Updates previous global steps on activation and send to App.
+    Pedometer.getStepCountAsync(start, end).then(
+      result => {
+        this.props.updatePrevGlobalSteps(result.steps);
+      },
+      error => {
+        console.log("Could not retrieve previous steps:", error);
+      }
+    );
   }
 
   render() {
