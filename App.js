@@ -1,8 +1,5 @@
 import React from 'react';
-import Navigator from './src/components/Navigator/CreateNavigator';
-
-import Settings from './Containers/Settings.js';
-import Home from './Containers/Home.js';
+import {Navigator} from './src/components/Navigator/CreateNavigator';
 
 export default class App extends React.Component {
 
@@ -29,9 +26,21 @@ export default class App extends React.Component {
   }
 
   render() {
+    var homeProps = {};
+    homeProps.startDate = this.state.startDate;
+    homeProps.pedAvailable = this.state.pedAvailable;
+    homeProps.globalStepCount = this.state.globalStepCount;
+
+    var settingsProps = {};
+    settingsProps.startDate = this.state.startDate;
+    settingsProps.updateAvailability = this.updateAvailability;
+    settingsProps.updateGlobalSteps = this.updateGlobalSteps;
+
+    const Nav = Navigator({...homeProps}, {...settingsProps})
+
     return (
 
-      <Navigator startDate={this.state.startDate} pedAvailable={this.state.pedAvailable} globalStepCount={this.state.globalStepCount} updateAvailability={this.updateAvailability} updateGlobalSteps={this.updateGlobalSteps}/>
+      <Nav />
 
     );
   }

@@ -14,7 +14,7 @@ export default class GlobalPedometer extends React.Component{
 
       // Container for the component, dynamic on availability
       <View style={styles.container}>
-        {this.props.pedAvailable !== false ? <Text style={styles.infoText}>Starting {this.props.startDate.getDate()}.{this.props.startDate.getMonth()}.{this.props.startDate.getFullYear()}, your step number is</Text> : <Text style={styles.infoText}>Go to settings to activate global pedometer</Text>}
+        {this.props.pedAvailable !== false ? <Text style={styles.infoText}>Starting {this.props.startDate.getDate()}.{this.props.startDate.getMonth() + 1}.{this.props.startDate.getFullYear()}, your step number is</Text> : <Text style={styles.infoText}>Go to settings to activate global pedometer</Text>}
 
         {/* Container for the step number*/}
         <View style={styles.circle}>
@@ -28,8 +28,6 @@ export default class GlobalPedometer extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'inherit',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -40,7 +38,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 100,
     borderColor: '#361e81',
-    backgroundColor: 'inherit',
     alignItems: 'center',
     justifyContent: 'center',
   },
