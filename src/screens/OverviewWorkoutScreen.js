@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, AsyncStorage } from 'react-native';
-import { getFromStorage, AsyncStorageSupplement } from '../utils/asyncstorageUtils';
+import { View, AsyncStorage, Text, StyleSheet } from 'react-native';
+import { FAB } from 'react-native-paper';
 import WorkoutCard from '../components/WorkoutCard';
 import Workout from '../components/Workout';
 

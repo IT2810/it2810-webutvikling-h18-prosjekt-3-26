@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 
 export default WorkoutCard = (props) => {
 
@@ -13,16 +14,15 @@ export default WorkoutCard = (props) => {
         props.removeWorkout(props.workout);        
     }
 
-    //
-    console.log('creating workoutCard from',props.workout);
     return (
-        <React.Fragment>
-            <TouchableOpacity onPress={() => remove()} ><Text>redcross</Text></TouchableOpacity>
-            {/*<TouchableOpacity onPress={() => this.props.navigate('SingleWorkoutScreen')}>*/}
+        <View style={props.style}>
+            <Button color="red" icon="delete" onPress={() => remove()} />
+            <TouchableOpacity onPress={() => props.navigation.navigate('Details',{workout:props.workout, reloadOverview:props.reloadOverview})}>
             <Text>{props.workout.title}</Text>
             <Text>{props.workout.date.toString()}</Text>
             <Text>{props.workout.note}</Text>
             {props.workout.exercises.map( (exercise, i) => <Text key={i}>{exercise.name}</Text>)}
-        </React.Fragment>
+            </TouchableOpacity>
+        </View>
     );
 }

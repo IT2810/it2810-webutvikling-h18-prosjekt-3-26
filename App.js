@@ -1,21 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import OverviewWorkoutScreen from './src/screens/OverviewWorkoutScreen';
+import SingleWorkoutScreen from './src/screens/SingleWorkoutScreen';
+import { createStackNavigator } from 'react-navigation';
 
 export default class App extends React.Component {
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <Navigate />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+const Navigate = createStackNavigator(
+  {
+    Home: OverviewWorkoutScreen,
+    Details: SingleWorkoutScreen,
+  }, 
+  {
+    initialRouteName: 'Home',
+  });
