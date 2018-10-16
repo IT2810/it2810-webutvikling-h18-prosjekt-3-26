@@ -1,5 +1,6 @@
 import React from 'react';
-import {Navigator, AsyncStorage} from './src/components/Navigator/CreateNavigator';
+import { Navigator } from './src/components/Navigator/CreateNavigator';
+import { AsyncStorage } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -7,9 +8,7 @@ export default class App extends React.Component {
     super(props);
 
     // States for global pedometer
-    this.state = { pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
-
-    this.startDate = new Date();
+    this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
 
     // Functions for updating states from global pedometer
     this.updateActivated = this.updateActivated.bind(this);
@@ -19,8 +18,7 @@ export default class App extends React.Component {
 
   // Sets a startDate state for this session.
   componentDidMount(){
-    this.startDate = this.retrieveStartDate();
-    console.log(this.startDate);
+    this.retrieveStartDate();
   }
 
   // Save start date locally, so pedometer can check the global number of steps from that date.
@@ -36,17 +34,16 @@ export default class App extends React.Component {
   retrieveStartDate = async () => {
     let startDate = new Date();
     try {
-      startDate = await AsyncStorage.getItem('startDate') || 'none';
+      startDate = await AsyncStorage.getItem('startDate');
 
-      console.log(startDate);
-
-      if(startDate === 'none'){
+      if(!startDate){
         let newStartDate = new Date();
-        saveStartDate(newStartDate);
-        return newStartDate;
+        this.saveStartDate(newStartDate);
+        this.setState({ startDate: newStartDate }, () => console.log('Updated start date state to: ',this.state.startDate));
       }
       else{
-        return startDate;
+        this.setState({ startDate: new Date(startDate) }, () => console.log('Updated start date state to: ',this.state.startDate));
+
       }
     } catch (error) {
       console.log(error.message);
@@ -70,14 +67,15 @@ export default class App extends React.Component {
   }
 
   render() {
+
     // For sending pedometer props to navigator
     var homeProps = {};
-    homeProps.startDate = this.startDate;
+    homeProps.startDate = this.state.startDate;
     homeProps.pedActivated = this.state.pedActivated;
     homeProps.globalStepCount = this.state.globalStepCount;
-
+    
     var settingsProps = {};
-    settingsProps.startDate = this.startDate;
+    settingsProps.startDate = this.state.startDate;
     settingsProps.pedActivated = this.state.pedActivated;
     settingsProps.updateActivated = this.updateActivated;
     settingsProps.updateGlobalSteps = this.updateGlobalSteps;
