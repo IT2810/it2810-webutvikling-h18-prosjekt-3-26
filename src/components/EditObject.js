@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
 import NumericInput from './NumericInput';
 
 export default class EditObject extends React.Component {
@@ -46,14 +46,25 @@ export default class EditObject extends React.Component {
         for (const key in this.props.propObject) {
             if (this.props.propObject.hasOwnProperty(key) && typeof this.props.propObject[key] !== 'function' && typeof this.props.propObject[key] !== 'object') {
                 if(!('exclude' in this.props) || 'exclude' in this.props && this.props.exclude.indexOf(key) === -1) {
-                    display.push(<Text key={key}>{this.props.propObject[key]}</Text>);
+                    if(this.props['labels']) {
+                        display.push(
+                        <View key={key+'view'}>
+                            <Text key={key+'label'}>{key}</Text>
+                            <Text key={key}>{this.props.propObject[key]}</Text>
+                        </View>
+                        );
+                    }
+                    else{
+                        display.push(<Text key={key}>{this.props.propObject[key]}</Text>);
+                    }
                 }
             }
         }
         return display;
     }
 
-    // Add input field for every input-able field
+    // Add input field for every input-able field.
+    // If labels are present, add keys as labels!
     createInputFields = () => {
         const inputs = [];
         const editableObject = this.createEditableObject();
@@ -61,10 +72,30 @@ export default class EditObject extends React.Component {
             if (editableObject.hasOwnProperty(key)) {
                 const stateName = 'edit' + key;
                 if (!('ints' in this.props) || this.props.ints.indexOf(key) === -1) {
-                    inputs.push(<TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                    if (this.props['labels']) {
+                        inputs.push(
+                            <View key={key+'view'}>
+                                <Text key={key+'text'}>{key}</Text>
+                                <TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>
+                            </View>
+                        );
+                    }
+                    else {
+                        inputs.push(<TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                    }
                 }
                 else {
-                    inputs.push(<NumericInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                    if (this.props['labels']) {
+                        inputs.push(
+                            <View key={key+'view'}>
+                                <Text key={key+'text'}>{key}</Text>
+                                <NumericInput key={key} onChange={(text) => this.setState({[stateName]:text})} placeholder={''+editableObject[key]}/>
+                            </View>
+                        ); 
+                    }
+                    else {
+                        inputs.push(<NumericInput key={key} onChange={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
+                    }
                 }
             }
         }
@@ -105,7 +136,7 @@ export default class EditObject extends React.Component {
             return (
                 <View>
                     {this.createInputFields()}
-                    <Button title='save' onPress={() => this.saveButton()}></Button>
+                    <Button title='accept' onPress={() => this.saveButton()}></Button>
                 </View>
             );
         }
