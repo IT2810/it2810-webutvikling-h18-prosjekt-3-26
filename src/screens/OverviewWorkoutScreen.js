@@ -9,6 +9,7 @@ export default class OverviewWorkoutScreen extends React.Component {
         super(props);
         this.state = {
             workouts: [],
+            loading: false,
         }
     }
 
@@ -23,54 +24,123 @@ export default class OverviewWorkoutScreen extends React.Component {
     */
 
     componentDidMount = () => {
+        this.setState({loading:true});
         this.loadWorkoutsFromAsyncStorage();
     }
 
+    // Removes workout from state and put it back,
+    // effectively removes workout from the component.
     removeWorkout = (workout) => {
-        const workouts = this.state.workouts;
+        const workouts = {...this.state}.workouts;
         workouts.splice(workouts.indexOf(workout),1);
         this.setState({ workouts });
     }
 
-
-    addWorkout = () => {
-        const newWorkout = new Workout();
-
+    addToDisplayedListOfWorkouts = (workout, edit=-1) => {
+        const workouts = {...this.state}.workouts;
+        if (edit >= 0) {
+            workouts[edit] = workout;
+            this.setState({workouts});
+        }
+        else {
+            workouts.push(workout);
+            this.setState({ workouts });
+        }
     }
 
-    // This function loads all workouts from async storage 
-    loadWorkoutsFromAsyncStorage = async () => {
-        let workoutTitles = await AsyncStorage.getItem('workouts');
-        workoutTitles ? workoutTitles = JSON.parse(workoutTitles) : workoutTitles;
-        const workoutArray = []
-        for (const workoutNr in workoutTitles) {
-            let workout = await AsyncStorage.getItem(workoutTitles[workoutNr]);
-            if (workout) {
-                workout = JSON.parse(workout);
-                workout = new Workout(workout);
-                workoutArray.push(workout);
+
+    // Creates a new workout and returns a button that takes the user to an edit-screen.
+    addWorkout = () => {
+        return <FAB icon="add" onPress={() =>{this.props.navigation.push('Details',{workout:new Workout()})}} label={'Start exercise'}/>;
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        // Get workout from props if we navigated here and it exists
+        const workout = this.props['navigation'] ? this.props.navigation.getParam('workout',false) : false;
+        if (workout){
+            // TODO: Allow edit of already existing objects.
+            // Find out why it creates duplicates.
+            if (this.state.workouts === prevState.workouts && workout !== prevProps.navigation.getParam('workout')) {
+                this.addToDisplayedListOfWorkouts(workout, this.state.workouts.indexOf(workout));
             }
         }
-
-        this.setState({workouts:workoutArray});
     }
+
+    /*
+     This function loads all workouts from async storage.
+     First, get list of workouts, then get all workouts, and "revive" them as workouts again.
+     Last, put it in state and tell the component that it is loading no more.
+    */
+    loadWorkoutsFromAsyncStorage = async () => {
+        try{
+            let workoutTitles = await AsyncStorage.getItem('@projectum-tres:workouts');
+            workoutTitles ? workoutTitles = JSON.parse(workoutTitles) : workoutTitles;
+            //const workouts = await Promise.all(workoutTitles.map(workout => AsyncStorage.getItem(workout)));
+            const workouts = await AsyncStorage.multiGet(workoutTitles);
+            workouts = workouts.map(workoutKeyPair => workoutKeyPair[1]);
+            const workoutArray = workouts.map(workout => new Workout(JSON.parse(workout)));
+            this.setState({workouts:workoutArray, loading:false});
+        } catch (err){
+            console.error('could not load workouts from asyncstorage, ',err);
+        }
+    }
+
 
     // Converts a list of workouts to display cards
     workoutsToCard = () => {
-        //console.log('overview state workouts',this.state.workouts);
         const cards = this.state.workouts.map( workout => {
-            return <WorkoutCard key={workout.title+workout.date} workout={workout} removeWorkout={this.removeWorkout}/>;
+            return <WorkoutCard style={styles.card} key={workout.saveKey} workout={workout} removeWorkout={this.removeWorkout} navigation={this.props.navigation} reloadOverview={this.loadWorkoutsFromAsyncStorage}/>;
         });
-        //console.log('cards',cards);
         return cards;
     }
 
     render() {
+        let cards = this.workoutsToCard();
+        cards = cards != false ? cards : false;
+        if (cards) {
+            return (
+                <View style={styles.cardContainer}>
+                    {this.addWorkout()}
+                    {cards}
+                </View>
+            );
+        }
+        if (this.state.loading) {
+            return (
+                <View>
+                    <Text>Loading workouts...</Text>
+                </View>
+            );
+        }
         return (
             <View>
-              {this.workoutsToCard() || <Text>Found no workouts</Text>}
+                {this.addWorkout()}
+                <Text>Found no workouts</Text>
             </View>
         );
     }
 
 }
+
+const styles = StyleSheet.create({
+    card: {
+        margin: 20,
+        padding:10,
+        borderStyle: 'solid',
+        borderColor: '#000000',
+        borderWidth: 1,
+        borderRadius:10,
+    },
+    cardContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    addButton: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+    }
+})
