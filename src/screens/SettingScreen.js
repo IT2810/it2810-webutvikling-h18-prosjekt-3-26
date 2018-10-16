@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, } from 'react-native';
-
 import PedometerSettings from './../components/Pedometer/PedometerSettings.js'
 
 

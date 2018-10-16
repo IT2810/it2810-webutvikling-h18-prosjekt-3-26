@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigator } from './src/components/Navigator/CreateNavigator';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, View, StatusBar } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -73,7 +73,7 @@ export default class App extends React.Component {
     homeProps.startDate = this.state.startDate;
     homeProps.pedActivated = this.state.pedActivated;
     homeProps.globalStepCount = this.state.globalStepCount;
-    
+
     var settingsProps = {};
     settingsProps.startDate = this.state.startDate;
     settingsProps.pedActivated = this.state.pedActivated;
@@ -85,7 +85,10 @@ export default class App extends React.Component {
 
     return (
 
-      <Nav />
+      <React.Fragment>
+        <StatusBar hidden />
+        <Nav />
+      </React.Fragment>
 
     );
   }
