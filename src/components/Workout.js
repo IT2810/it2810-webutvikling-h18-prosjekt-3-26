@@ -1,5 +1,6 @@
 import { getFromStorage } from '../utils/asyncstorageUtils';
 import { AsyncStorage } from 'react-native';
+import Exercise from './Exercise';
 
 export default class Workout {
     constructor(title='New Workout', date= new Date(), exercises=[],note='', saveKey='') {
@@ -9,7 +10,9 @@ export default class Workout {
             const prevWorkout = title;
             this.title = prevWorkout.title;
             this.date = new Date(prevWorkout.date);
-            this.exercises = prevWorkout.exercises;
+            this.exercises = prevWorkout.exercises.map(exercise => {
+                return new Exercise(exercise.name,exercise.weight, exercise.repetitions);
+            });
             this.note = prevWorkout.note;
             this.saveKey = prevWorkout.saveKey;
         }
@@ -62,15 +65,15 @@ export default class Workout {
         const workoutIndex = workoutsInAsyncStorage.indexOf('@projectum-tres:'+this.saveKey);
         if (workoutIndex !==-1) {
             try {
-                await AsyncStorage.removeItem('@projectum-tres:'+this.saveKey);
                 workoutsInAsyncStorage.splice(workoutIndex,1);
                 await AsyncStorage.setItem('@projectum-tres:workouts',JSON.stringify(workoutsInAsyncStorage));
+                await AsyncStorage.removeItem('@projectum-tres:'+this.saveKey);
             } catch (err){
                 console.error('failed to remove item, errormsg:',err);
             }
         }
     }
-    
+
     // Remove exercise from this workout
     removeExercise = (exercise) => {
         this.exercises.filter(a => a !== exercise);
