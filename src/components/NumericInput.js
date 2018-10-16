@@ -10,7 +10,7 @@ export default class NumericInput extends React.Component {
     }
 
     componentDidMount() {
-        if ('startNumber' in this.props) {
+        if ('placeholder' in this.props) {
             this.setState({number:this.props.placeholder});
         }
     }
