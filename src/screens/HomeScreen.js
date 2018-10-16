@@ -12,9 +12,6 @@ class HomeScreen extends React.Component {
             <Row size={15} style={{backgroundColor: 'green'}}>     
               <Text style={{color:'white'}}> Next Workout goes here </Text>
             </Row >
-            
-
-
             <Row size={14}>
               <Col size={10} style={{backgroundColor: 'pink'}}>  
               <Text>Pedometer</Text>         
@@ -32,10 +29,10 @@ class HomeScreen extends React.Component {
               </Col>
               </Row> 
               <Row size={7} style={{backgroundColor: 'green'}}>
-            <DisplayQuote />
+            <DisplayQuote style={{color: 'red'}} />
             </Row>
             <Row size={30}>
-              <Col size={80} style={{backgroundColor: 'white'}}>
+              <Col size={80} style={{color: 'red'}}>
                 <HomeCalendar />
               </Col>
             </Row>
