@@ -38,6 +38,7 @@ export default class OverviewWorkoutScreen extends React.Component {
 
     addToDisplayedListOfWorkouts = (workout, edit=-1) => {
         const workouts = {...this.state}.workouts;
+        this.findClosestWorkout();
         if (edit >= 0) {
             workouts[edit] = workout;
             this.setState({workouts});
@@ -76,12 +77,29 @@ export default class OverviewWorkoutScreen extends React.Component {
             let workoutTitles = await AsyncStorage.getItem('@projectum-tres:workouts');
             workoutTitles ? workoutTitles = JSON.parse(workoutTitles) : workoutTitles;
             //const workouts = await Promise.all(workoutTitles.map(workout => AsyncStorage.getItem(workout)));
-            const workouts = await AsyncStorage.multiGet(workoutTitles);
-            workouts = workouts.map(workoutKeyPair => workoutKeyPair[1]);
-            const workoutArray = workouts.map(workout => new Workout(JSON.parse(workout)));
-            this.setState({workouts:workoutArray, loading:false});
+            if (workoutTitles) {
+                const workouts = await AsyncStorage.multiGet(workoutTitles);
+                workouts = workouts.map(workoutKeyPair => workoutKeyPair[1]);
+                const workoutArray = workouts.filter(workout => workout).map(workout => new Workout(JSON.parse(workout)));
+                this.setState({workouts:workoutArray, loading:false});
+            }
         } catch (err){
             console.error('could not load workouts from asyncstorage, ',err);
+        }
+    }
+
+    findClosestWorkout = async () => {
+        try {
+            const rightNow = new Date().getTime();
+            let workoutKeys = await AsyncStorage.getItem('@projectum-tres:workouts');
+            console.log('workoutKeys',workoutKeys);
+            workoutKeys = workoutKeys ? JSON.parse(workoutKeys) : workoutKeys;
+            const workoutTimes = workoutKeys.map(workout => workout.replace('@projectum-tres:','')).sort((a,b) => Math.abs(a-rightNow) - Math.abs(b-rightNow));
+            let newestWorkout = await AsyncStorage.getItem('@projectum-tres:'+workoutTimes[0]);
+            newestWorkout = newestWorkout ? new Workout(JSON.parse(newestWorkout)):newestWorkout;
+            console.log('newest workout',newestWorkout.title, newestWorkout.date);
+        } catch(err) {
+            console.log('failed to find closest workout',err);
         }
     }
 
