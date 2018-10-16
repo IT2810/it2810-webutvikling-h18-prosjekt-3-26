@@ -20,7 +20,9 @@ export default WorkoutCard = (props) => {
             <TouchableOpacity onPress={() => props.navigation.navigate('Details',{workout:props.workout, reloadOverview:props.reloadOverview})}>
             <Text>{props.workout.title}</Text>
             <Text>{props.workout.date.toString()}</Text>
+            <Text>Note:</Text>
             <Text>{props.workout.note}</Text>
+            <Text>Exercises:</Text>
             {props.workout.exercises.map( (exercise, i) => <Text key={i}>{exercise.name}</Text>)}
             </TouchableOpacity>
         </View>
