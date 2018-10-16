@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, AsyncStorage, Text, StyleSheet } from 'react-native';
+import { View, AsyncStorage, Text, StyleSheet, ScrollView } from 'react-native';
 import { FAB } from 'react-native-paper';
 import WorkoutCard from '../components/WorkoutCard';
 import Workout from '../components/Workout';
@@ -99,10 +99,12 @@ export default class OverviewWorkoutScreen extends React.Component {
         cards = cards != false ? cards : false;
         if (cards) {
             return (
+            <ScrollView>
                 <View style={styles.cardContainer}>
                     {this.addWorkout()}
                     {cards}
                 </View>
+            </ScrollView>
             );
         }
         if (this.state.loading) {
