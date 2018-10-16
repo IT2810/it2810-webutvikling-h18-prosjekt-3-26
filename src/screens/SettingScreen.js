@@ -9,6 +9,8 @@ class SettingScreen extends React.Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
           <Text>Settings</Text>
           <Text>Register your pedometer</Text>
+
+          {/* Settings specifically for the global pedometer. */}
           <PedometerSettings startDate={this.props.startDate} pedActivated={this.props.pedActivated} updateActivated={this.props.updateActivated} updateGlobalSteps={this.props.updateGlobalSteps} updatePrevGlobalSteps={this.props.updatePrevGlobalSteps}/>
         </View>
       );

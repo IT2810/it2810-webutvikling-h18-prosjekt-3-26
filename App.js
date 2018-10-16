@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigator } from './src/components/Navigator/CreateNavigator';
 import { AsyncStorage, View, StatusBar } from 'react-native';
 
+
 export default class App extends React.Component {
 
   constructor(props){
@@ -36,11 +37,13 @@ export default class App extends React.Component {
     try {
       startDate = await AsyncStorage.getItem('startDate');
 
+      // If the user does not have a saved start date, one will be made from today and used further in Global Pedometer.
       if(!startDate){
         let newStartDate = new Date();
         this.saveStartDate(newStartDate);
         this.setState({ startDate: newStartDate }, () => console.log('Updated start date state to: ',this.state.startDate));
       }
+      // If a start date is saved, this one will be used.
       else{
         this.setState({ startDate: new Date(startDate) }, () => console.log('Updated start date state to: ',this.state.startDate));
 

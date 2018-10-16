@@ -4,7 +4,6 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeCalendar from "../components/Calendar/HomeCalendar";
 import DisplayQuote from "../components/Quoter/DisplayQuote";
 
-
 import GlobalPedometer from './../components/Pedometer/GlobalPedometer.js'
 
 
@@ -14,10 +13,13 @@ class HomeScreen extends React.Component {
           <Grid>
             <Row size={15} style={{backgroundColor: 'green'}}>
               <Text style={{color:'white'}}> Next Workout goes here </Text>
-            </Row >
+            </Row>
             <Row size={14}>
-              <Col size={10} style={{border: 1}}>
-              <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
+              <Col size={10} style={{borderWidth: 1, borderRadius: 4}}>
+
+                {/*Pedometer for global steps are implemented here*/}
+                <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
+
               </Col>
               <Col size={10} style={{backgroundColor: 'yellow'}}>
               <Text>Notifications</Text>
@@ -35,7 +37,7 @@ class HomeScreen extends React.Component {
             <DisplayQuote style={{color: 'red'}} />
             </Row>
             <Row size={30}>
-              <Col size={80} style={{color: 'red'}}>
+              <Col size={80} style={{backgroundColor: 'red'}}>
                 <HomeCalendar />
               </Col>
             </Row>

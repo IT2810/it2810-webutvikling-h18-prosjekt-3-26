@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { Alert, ScrollView, Text, Button } from 'react-native';
 import { Pedometer } from 'expo';
+
 
 export default class PedometerSettings extends React.Component {
 

@@ -7,6 +7,7 @@
   import WorkoutScreen from '../../screens/WorkoutScreen';
   import SettingsScreen  from '../../screens/SettingScreen';
 
+
   // Creates a navigator using an external react navigation framework.
   export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
     {
