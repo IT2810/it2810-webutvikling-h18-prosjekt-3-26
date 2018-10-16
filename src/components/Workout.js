@@ -8,7 +8,7 @@ export default class Workout {
         if(typeof title === 'object'){
             const prevWorkout = title;
             this.title = prevWorkout.title;
-            this.date = prevWorkout.date;
+            this.date = new Date(prevWorkout.date);
             this.exercises = prevWorkout.exercises;
             this.note = prevWorkout.note;
             this.saveKey = prevWorkout.saveKey;
@@ -37,39 +37,40 @@ export default class Workout {
     // Also add key to list of workouts
     save = async () => {
         try {
-//            await AsyncStorage.clear();
-            const workoutsInAsyncStorage = await AsyncStorage.getItem('workouts');
-            this.saveKey = this.title+this.date.getTime();
-            await AsyncStorage.setItem(this.saveKey, JSON.stringify(this));
-            //const logitem = await AsyncStorage.getFromStorage(cardKey);
-            //console.log(logitem);
+            //await AsyncStorage.clear();
+            const workoutsInAsyncStorage = await AsyncStorage.getItem('@projectum-tres:workouts');
+            this.saveKey = this.date.getTime();
+            await AsyncStorage.setItem('@projectum-tres:'+this.saveKey, JSON.stringify(this));
+            // Parse if not null
             workoutsInAsyncStorage = workoutsInAsyncStorage ? JSON.parse(workoutsInAsyncStorage) : [];
-            workoutsInAsyncStorage.push(this.saveKey);
-            await AsyncStorage.setItem('workouts',JSON.stringify(workoutsInAsyncStorage));
+            if (workoutsInAsyncStorage.indexOf('@projectum-tres:'+this.saveKey) === -1) {
+                workoutsInAsyncStorage.push('@projectum-tres:'+this.saveKey);
+            }
+            await AsyncStorage.setItem('@projectum-tres:workouts',JSON.stringify(workoutsInAsyncStorage));
         } catch (error) {
             console.error('Could not save workout to local storage: ',error);
         }
     }
 
+    /* 
+    Gets the list of workouts, parses it if it got a list.
+    If it finds a workout, removes it from the AsyncStorage, then removes it from the list and puts it back.
+    */ 
     delete = async () => {
-        let workoutsInAsyncStorage = await AsyncStorage.getItem('workouts');
+        let workoutsInAsyncStorage = await AsyncStorage.getItem('@projectum-tres:workouts');
         workoutsInAsyncStorage = workoutsInAsyncStorage ? JSON.parse(workoutsInAsyncStorage) : [];
-        const workoutIndex = workoutsInAsyncStorage.indexOf(this.saveKey);
-        console.log('workoutIndex',workoutIndex);
+        const workoutIndex = workoutsInAsyncStorage.indexOf('@projectum-tres:'+this.saveKey);
         if (workoutIndex !==-1) {
-            console.log('this.savekey',this.saveKey);
             try {
-                await AsyncStorage.removeItem(this.saveKey);
+                await AsyncStorage.removeItem('@projectum-tres:'+this.saveKey);
                 workoutsInAsyncStorage.splice(workoutIndex,1);
-                await AsyncStorage.setItem('workouts',JSON.stringify(workoutsInAsyncStorage));
+                await AsyncStorage.setItem('@projectum-tres:workouts',JSON.stringify(workoutsInAsyncStorage));
             } catch (err){
                 console.error('failed to remove item, errormsg:',err);
             }
         }
     }
     
-
-
     // Remove exercise from this workout
     removeExercise = (exercise) => {
         this.exercises.filter(a => a !== exercise);
@@ -77,7 +78,7 @@ export default class Workout {
 
     edit = (paramObject) => {
         'note' in paramObject ? this.note = paramObject.note : false;
-
+        'title' in paramObject ? this.title = paramObject.title : false;
     }
 
 }
