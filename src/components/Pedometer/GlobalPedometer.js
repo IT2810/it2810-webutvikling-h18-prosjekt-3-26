@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
   },
   circle: {
     marginTop: 5,
-    minWidth: 200,
-    minHeight: 200,
-    borderWidth: 3,
+    minWidth: 62,
+    minHeight: 62,
+    borderWidth: 2,
     borderRadius: 100,
     borderColor: '#361e81',
     alignItems: 'center',
@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
   },
   infoText: {
     textAlign: 'center',
-    fontSize: 20,
-    marginRight: 50,
-    marginLeft: 50,
+    fontSize: 11,
+    marginRight: 10,
+    marginLeft: 10,
   },
   stepText: {
-    fontSize: 45,
+    fontSize: 18,
   }
 });

@@ -16,7 +16,7 @@ class HomeScreen extends React.Component {
               <Text style={{color:'white'}}> Next Workout goes here </Text>
             </Row >
             <Row size={14}>
-              <Col size={10} style={{backgroundColor: 'pink'}}>
+              <Col size={10} style={{border: 1}}>
               <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
               </Col>
               <Col size={10} style={{backgroundColor: 'yellow'}}>
