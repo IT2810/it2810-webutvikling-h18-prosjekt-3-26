@@ -1,5 +1,5 @@
   import React, { Component } from 'react';
-  import { Platform } from 'react-native';
+  import { Platform, View } from 'react-native';
   import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
   import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -7,10 +7,12 @@
   import WorkoutScreen from '../../screens/WorkoutScreen';
   import SettingsScreen  from '../../screens/SettingScreen';
 
-  export default createMaterialBottomTabNavigator(
+
+  // Creates a navigator using an external react navigation framework.
+  export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
     {
       Home: {
-        screen: HomeScreen,
+        screen: props => <HomeScreen startDate={home.startDate} pedActivated={home.pedActivated} globalStepCount={home.globalStepCount} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor, focused }) => (
@@ -28,7 +30,7 @@
         }
       },
       Settings: {
-        screen: SettingsScreen,
+        screen: props => <SettingsScreen startDate={settings.startDate} pedActivated={settings.pedActivated} updateActivated={settings.updateActivated} updateGlobalSteps={settings.updateGlobalSteps} updatePrevGlobalSteps={settings.updatePrevGlobalSteps} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ tintColor, focused }) => (
