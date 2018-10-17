@@ -249,3 +249,6 @@ typings/
 
 # End of https://www.gitignore.io/api/reactnative,visualstudiocode
 
+# Yarn & NPM
+yarn.lock
+package-lock.json
