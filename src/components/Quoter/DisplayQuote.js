@@ -12,7 +12,7 @@ class DisplayQuote extends React.Component{
     render() {
         return(
             <View style={{display:"flex",justifyContent:"center",}}>
-                <Text>
+                <Text style={{color: 'white'}}>
                    {dataz}
                 </Text>
             </View>

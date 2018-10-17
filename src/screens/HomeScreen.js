@@ -32,7 +32,7 @@ class HomeScreen extends React.Component {
             <DisplayQuote style={{color: 'red'}} />
             </Row>
             <Row size={30}>
-              <Col size={80} style={{color: 'red'}}>
+              <Col size={80} style={{backgroundColor: 'white'}}>
                 <HomeCalendar />
               </Col>
             </Row>
@@ -40,11 +40,4 @@ class HomeScreen extends React.Component {
       );
     }  
   }
-
-const styles=StyleSheet.create({
-  gridstyle: {
-    color: 'yellow',
-    fontSize: 24,
-  }
-})
   export default HomeScreen;  
