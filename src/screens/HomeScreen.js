@@ -4,7 +4,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeCalendar from "../components/Calendar/HomeCalendar";
 import DisplayQuote from "../components/Quoter/DisplayQuote";
 
-import GlobalPedometer from './../components/Pedometer/GlobalPedometer.js'
+import GlobalPedometer from "../components/Pedometer/GlobalPedometer";
 
 
 class HomeScreen extends React.Component {
@@ -34,7 +34,7 @@ class HomeScreen extends React.Component {
             <DisplayQuote style={{color: 'red'}} />
             </Row>
             <Row size={30}>
-              <Col size={80} style={{backgroundColor: 'red'}}>
+              <Col size={80} style={{backgroundColor: 'white'}}>
                 <HomeCalendar />
               </Col>
             </Row>
@@ -42,11 +42,4 @@ class HomeScreen extends React.Component {
       );
     }
   }
-
-const styles=StyleSheet.create({
-  gridstyle: {
-    color: 'yellow',
-    fontSize: 24,
-  }
-})
-export default HomeScreen;
+  export default HomeScreen;
