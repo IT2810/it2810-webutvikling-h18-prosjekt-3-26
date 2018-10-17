@@ -18,14 +18,14 @@ export default class PedometerSettings extends React.Component {
   _listener: { remove: () => void } = null;
 
   // Checks the users Google Fit for availability
-  async checkAvailability = () => {
+  checkAvailability = async () => {
     const result = await Pedometer.isAvailableAsync();
 
     this.setState({available: result});
   }
 
   // Activates recording of step count
-  async activatePedometer = () => {
+  activatePedometer = async () => {
 
     // Records new steps
     if(!this.props.pedActivated){
@@ -42,7 +42,7 @@ export default class PedometerSettings extends React.Component {
   }
 
   // Deactivates recording of step count
-  async deactivatePedometer = () => {
+  deactivatePedometer = async () => {
     if (this._listener) {
       this._listener.remove();
       this._listener = null;
@@ -55,7 +55,7 @@ export default class PedometerSettings extends React.Component {
   }
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
-  async setGlobalSteps = () => {
+  setGlobalSteps = async () => {
 
     const end = new Date();
     const start = this.props.startDate;
