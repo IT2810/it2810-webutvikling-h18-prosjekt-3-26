@@ -45,7 +45,7 @@ export default class App extends React.Component {
       }
       // If a start date is saved, this one will be used.
       else{
-        this.setState({ startDate: new Date(startDate) }, () => console.log('Updated start date state to: ',this.state.startDate));
+        this.setState({ startDate: new Date(startDate) });
 
       }
     } catch (error) {
