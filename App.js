@@ -39,7 +39,7 @@ export default class App extends React.Component {
 
       // If the user does not have a saved start date, one will be made from today and used further in Global Pedometer.
       if(!startDate){
-        let newStartDate = new Date();
+        const newStartDate = new Date();
         this.saveStartDate(newStartDate);
         this.setState({ startDate: newStartDate }, () => console.log('Updated start date state to: ',this.state.startDate));
       }
