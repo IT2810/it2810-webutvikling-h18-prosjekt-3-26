@@ -17,11 +17,11 @@
           tabBarLabel: 'Home',
           tabBarIcon: ({ tintColor, focused }) => (
             <Icon size={23} name={(focused ? 'ios-home' : 'ios-home-outline')} style={{ color: tintColor }} />
-          )
+          ),
         }
       },
       Workout: {
-        screen: WorkoutScreen,
+        screen: workoutStack(workoutSettings),
         navigationOptions: {
           tabBarLabel: 'Workout',
           tabBarIcon: ({ tintColor, focused }) => (
@@ -50,3 +50,12 @@
       swipeEnabled: true,
     }
   );
+
+const workoutStack = (workoutSettings) => createStackNavigator({
+  Workout: props => <OverviewWorkoutScreen {...props} {...workoutSettings}/>,
+  Details: props => <SingleWorkoutScreen {...props} {...workoutSettings}/>,
+  },{
+    navigationOptions: {
+      header:null,
+    }
+});

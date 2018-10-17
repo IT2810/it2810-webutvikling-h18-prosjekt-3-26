@@ -9,7 +9,7 @@ export default class SingleWorkoutScreen extends React.Component {
     // This class takes an exercise as a prop and displays it nicely.
 
     createExercise = (workout) => {
-        const exercisesWithEdit = workout.exercises.map((exercise,i) => {console.log('creating exercise'); return (
+        const exercisesWithEdit = workout.exercises.map((exercise,i) => { return (
             <View key={i+'view'}>
                 <ObjectEdit key={i} propObject={exercise} ints={['weight','repetitions']} labels/>
                 <Button key={i+'button'} icon="delete" onPress={() =>{workout.removeExercise(exercise); this.forceUpdate()}}>Delete exercise</Button>
@@ -41,7 +41,7 @@ export default class SingleWorkoutScreen extends React.Component {
                     }>
                         Add exercise
                     </Button>
-                    <Button icon="save" mode="contained" compact onPress={() => workout.save().then(()=>{this.props.navigation.navigate('Home',{workout:workout})})}>Save</Button>
+                    <Button icon="save" mode="contained" compact onPress={() => workout.save().then(()=>{this.props.navigation.navigate('Workout',{workout:workout})})}>Save</Button>
                 </View>
             </ScrollView>
             );

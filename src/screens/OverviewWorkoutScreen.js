@@ -33,15 +33,16 @@ export default class OverviewWorkoutScreen extends React.Component {
     removeWorkout = (workout) => {
         const workouts = {...this.state}.workouts;
         workouts.splice(workouts.indexOf(workout),1);
+        //console.log('workouts being sat to state:',workouts);
         this.setState({ workouts });
+        //this.props.forceAppUpdate('Workout');
     }
 
     addToDisplayedListOfWorkouts = (workout, edit=-1) => {
         const workouts = {...this.state}.workouts;
-        this.findClosestWorkout();
         if (edit >= 0) {
             workouts[edit] = workout;
-            this.setState({workouts});
+            this.setState({ workouts });
         }
         else {
             workouts.push(workout);

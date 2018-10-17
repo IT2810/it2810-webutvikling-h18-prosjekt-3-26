@@ -3,11 +3,18 @@ import { AsyncStorage, Text } from 'react-native';
 import WorkoutCard from '../components/WorkoutCard';
 import Workout from '../components/Workout';
 
-export default class CurrentWorkoutScreen extends React.Component {
+export default class LastWorkout extends React.Component {
 
     componentDidMount = () => {
         this.findClosestWorkout();
     }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevState && prevState.workout.date.getTime() !== this.state.workout.date.getTime() || this.props.bool !== prevProps.bool) {
+            this.findClosestWorkout();
+        }
+    }
+
 
     findClosestWorkout = async () => {
         try {
