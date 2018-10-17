@@ -22,7 +22,7 @@ export default class App extends React.Component {
     try {
       await AsyncStorage.setItem('startDate', startDate);
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   }
 
