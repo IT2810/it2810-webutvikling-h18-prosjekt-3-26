@@ -25,12 +25,6 @@ export default class Workout {
         }
     }
 
-    // Allow user to set date on a workout. 
-    // Should this function open a DatetimePicker perhaps?
-    setDate = (datetime) => {
-        this.date = datetime;
-    }
-
     // Add exercise to this workout.
     addExercise = (exercise) => {
         this.exercises.push(exercise);
