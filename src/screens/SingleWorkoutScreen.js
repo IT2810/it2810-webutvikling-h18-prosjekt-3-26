@@ -9,8 +9,13 @@ export default class SingleWorkoutScreen extends React.Component {
     // This class takes an exercise as a prop and displays it nicely.
 
     createExercise = (workout) => {
-        const exercisesWithEdit = workout.exercises.map((exercise,i) => <ObjectEdit key={i} propObject={exercise} ints={['weight','repetitions']} labels/>);
-        return exercisesWithEdit;
+        const exercisesWithEdit = workout.exercises.map((exercise,i) => {console.log('creating exercise'); return (
+            <View key={i+'view'}>
+                <ObjectEdit key={i} propObject={exercise} ints={['weight','repetitions']} labels/>
+                <Button key={i+'button'} icon="delete" onPress={() =>{workout.removeExercise(exercise); this.forceUpdate()}}>Delete exercise</Button>
+            </View>);
+        });
+       return exercisesWithEdit;
     }
 
     navigationOrSingleRenderWorkout = () => {

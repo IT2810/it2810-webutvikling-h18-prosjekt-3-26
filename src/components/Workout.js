@@ -76,7 +76,7 @@ export default class Workout {
 
     // Remove exercise from this workout
     removeExercise = (exercise) => {
-        this.exercises.filter(a => a !== exercise);
+        this.exercises = this.exercises.filter(a => a !== exercise);
     }
 
     edit = (paramObject) => {
