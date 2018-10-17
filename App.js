@@ -66,13 +66,13 @@ export default class App extends React.Component {
   render() {
 
     // For sending pedometer props to navigator
-    var homeProps = {
+    const homeProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
         globalStepCount: this.state.globalStepCount
     };
 
-    var settingsProps = {
+    const settingsProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
         updateActivated: this.updateActivated,
