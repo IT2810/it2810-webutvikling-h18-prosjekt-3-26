@@ -16,7 +16,7 @@ export default WorkoutCard = (props) => {
 
     return (
         <View style={props.style}>
-            <Button color="red" icon="delete" onPress={() => remove()} />
+            {props['removeWorkoutDisabled']? false: <Button color="red" icon="delete" onPress={() => remove()} />}
             <TouchableOpacity onPress={() => props.navigation.navigate('Details',{workout:props.workout, reloadOverview:props.reloadOverview})}>
             <Text>{props.workout.title}</Text>
             <Text>{props.workout.date.toString()}</Text>

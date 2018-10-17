@@ -88,20 +88,7 @@ export default class OverviewWorkoutScreen extends React.Component {
         }
     }
 
-    findClosestWorkout = async () => {
-        try {
-            const rightNow = new Date().getTime();
-            let workoutKeys = await AsyncStorage.getItem('@projectum-tres:workouts');
-            console.log('workoutKeys',workoutKeys);
-            workoutKeys = workoutKeys ? JSON.parse(workoutKeys) : workoutKeys;
-            const workoutTimes = workoutKeys.map(workout => workout.replace('@projectum-tres:','')).sort((a,b) => Math.abs(a-rightNow) - Math.abs(b-rightNow));
-            let newestWorkout = await AsyncStorage.getItem('@projectum-tres:'+workoutTimes[0]);
-            newestWorkout = newestWorkout ? new Workout(JSON.parse(newestWorkout)):newestWorkout;
-            console.log('newest workout',newestWorkout.title, newestWorkout.date);
-        } catch(err) {
-            console.log('failed to find closest workout',err);
-        }
-    }
+
 
 
     // Converts a list of workouts to display cards
