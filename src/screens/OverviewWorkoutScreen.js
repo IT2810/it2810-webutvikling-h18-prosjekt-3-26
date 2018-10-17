@@ -52,7 +52,7 @@ export default class OverviewWorkoutScreen extends React.Component {
 
     // Creates a new workout and returns a button that takes the user to an edit-screen.
     addWorkout = () => {
-        return <FAB icon="add" onPress={() =>{this.props.navigation.push('Details',{workout:new Workout()})}} label={'Start exercise'}/>;
+        return <FAB icon="add" onPress={() =>{this.props.navigation.push('Details',{workout:new Workout()})}} label={'Start workout'}/>;
     }
 
     componentDidUpdate = (prevProps, prevState) => {

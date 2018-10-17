@@ -39,7 +39,7 @@ export default class SingleWorkoutScreen extends React.Component {
                         this.forceUpdate();
                         }
                     }>
-                        Add workout
+                        Add exercise
                     </Button>
                     <Button icon="save" mode="contained" compact onPress={() => workout.save().then(()=>{this.props.navigation.navigate('Home',{workout:workout})})}>Save</Button>
                 </View>
