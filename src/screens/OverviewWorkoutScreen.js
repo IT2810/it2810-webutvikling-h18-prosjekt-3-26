@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, AsyncStorage, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, AsyncStorage, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { FAB } from 'react-native-paper';
 import WorkoutCard from '../components/WorkoutCard';
 import Workout from '../components/Workout';
@@ -115,8 +115,9 @@ export default class OverviewWorkoutScreen extends React.Component {
         }
         if (this.state.loading) {
             return (
-                <View>
+                <View style={{flexDirection:'column',justifyContent:'center',alignItems:'center',height:500}}>
                     <Text>Loading workouts...</Text>
+                    <ActivityIndicator size='large' color='#0000FF'/>
                 </View>
             );
         }
