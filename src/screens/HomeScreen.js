@@ -16,10 +16,7 @@ class HomeScreen extends React.Component {
             </Row>
             <Row size={14}>
               <Col size={10} style={{borderWidth: 1, borderRadius: 4}}>
-
-                {/*Pedometer for global steps are implemented here*/}
                 <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
-
               </Col>
               <Col size={10} style={{backgroundColor: 'yellow'}}>
               <Text>Notifications</Text>

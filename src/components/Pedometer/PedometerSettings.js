@@ -9,11 +9,6 @@ export default class PedometerSettings extends React.Component {
     super(props);
 
     this.state = { available: false, activated: this.props.pedActivated};
-
-    this.checkAvailability = this.checkAvailability.bind(this);
-    this.activatePedometer = this.activatePedometer.bind(this);
-    this.deactivatePedometer = this.deactivatePedometer.bind(this);
-    this.setGlobalSteps = this.setGlobalSteps.bind(this);
   }
 
   componentDidMount(){
@@ -23,14 +18,14 @@ export default class PedometerSettings extends React.Component {
   _listener: { remove: () => void } = null;
 
   // Checks the users Google Fit for availability
-  async checkAvailability(){
+  async checkAvailability = () => {
     const result = await Pedometer.isAvailableAsync();
 
     this.setState({available: result});
   }
 
   // Activates recording of step count
-  async activatePedometer(){
+  async activatePedometer = () => {
 
     // Records new steps
     if(!this.props.pedActivated){
@@ -47,7 +42,7 @@ export default class PedometerSettings extends React.Component {
   }
 
   // Deactivates recording of step count
-  async deactivatePedometer(){
+  async deactivatePedometer = () => {
     if (this._listener) {
       this._listener.remove();
       this._listener = null;
@@ -60,7 +55,7 @@ export default class PedometerSettings extends React.Component {
   }
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
-  async setGlobalSteps(){
+  async setGlobalSteps = () => {
 
     const end = new Date();
     const start = this.props.startDate;
@@ -69,9 +64,10 @@ export default class PedometerSettings extends React.Component {
     Pedometer.getStepCountAsync(start, end).then(
       result => {
         this.props.updatePrevGlobalSteps(result.steps);
+        this.props.updateGlobalSteps();
       },
       error => {
-        console.log("Could not retrieve previous steps:", error);
+        console.error("Could not retrieve previous steps:", error);
       }
     );
   }
@@ -80,7 +76,7 @@ export default class PedometerSettings extends React.Component {
     return (
 
       <ScrollView style={{ padding: 10, margin: 5 }}>
-        {this.state.activated !== false ? <Text>Du har aktivert pedometeret i applikasjonen</Text> : <Text>Du har ikke aktivert pedometeret i applikasjonen</Text>}
+        {this.state.activated ? <Text>Du har aktivert pedometeret i applikasjonen</Text> : <Text>Du har ikke aktivert pedometeret i applikasjonen</Text>}
 
         <Button
           onPress={() => this.activatePedometer()}

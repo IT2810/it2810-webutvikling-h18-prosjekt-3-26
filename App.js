@@ -10,11 +10,6 @@ export default class App extends React.Component {
 
     // States for global pedometer
     this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
-
-    // Functions for updating states from global pedometer
-    this.updateActivated = this.updateActivated.bind(this);
-    this.updateGlobalSteps = this.updateGlobalSteps.bind(this);
-    this.updatePrevGlobalSteps = this.updatePrevGlobalSteps.bind(this);
   }
 
   // Sets a startDate state for this session.
@@ -54,35 +49,37 @@ export default class App extends React.Component {
   }
 
   // Updates availability
-  updateActivated(val){
+  updateActivated = (val) => {
     this.setState({ pedActivated: val });
   }
 
   // Updates global steps
-  updateGlobalSteps(val){
+  updateGlobalSteps = (val = 0) => {
     this.setState({ globalStepCount: this.state.prevGlobalStepCount + val });
   }
 
   // Updates previous global steps
-  updatePrevGlobalSteps(val){
-    this.setState({ globalStepCount: val });
+  updatePrevGlobalSteps = (val) => {
     this.setState({ prevGlobalStepCount: val });
   }
 
   render() {
 
     // For sending pedometer props to navigator
-    var homeProps = {};
-    homeProps.startDate = this.state.startDate;
-    homeProps.pedActivated = this.state.pedActivated;
-    homeProps.globalStepCount = this.state.globalStepCount;
+    var homeProps = {
+        startDate: this.state.startDate,
+        pedActivated: this.state.pedActivated,
+        globalStepCount: this.state.globalStepCount
+    };
 
-    var settingsProps = {};
-    settingsProps.startDate = this.state.startDate;
-    settingsProps.pedActivated = this.state.pedActivated;
-    settingsProps.updateActivated = this.updateActivated;
-    settingsProps.updateGlobalSteps = this.updateGlobalSteps;
-    settingsProps.updatePrevGlobalSteps = this.updatePrevGlobalSteps;
+    var settingsProps = {
+        startDate: this.state.startDate,
+        pedActivated: this.state.pedActivated,
+        updateActivated: this.updateActivated,
+        updateGlobalSteps: this.updateGlobalSteps,
+        updatePrevGlobalSteps: this.updatePrevGlobalSteps
+    };
+
 
     const Nav = Navigator({...homeProps}, {...settingsProps})
 
