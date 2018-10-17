@@ -9,7 +9,8 @@
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --runInBand",
     "travisTest": "node ./node_modules/jest-expo/bin/jest.js --runInBand",
-    "lint": "./node_modules/.bin/eslint **/*.js"
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "react-devtools": "react-devtools"
   },
   "jest": {
     "preset": "jest-expo"
@@ -17,6 +18,7 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "expo": "^30.0.1",
+    "expo-cli": "^2.2.0",
     "moment": "^2.22.2",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
