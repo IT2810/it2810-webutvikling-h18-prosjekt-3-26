@@ -9,6 +9,12 @@ export default class NumericInput extends React.Component {
         }
     }
 
+    /*
+    This limits the input to numbers only, 
+    both by which keyboard is shown
+    and by filtering out any non-digits.
+    */
+
     componentDidMount() {
         if ('placeholder' in this.props) {
             this.setState({number:this.props.placeholder});

@@ -53,6 +53,9 @@
     }
   );
 
+
+// Create a subnavigation with screens that can be navigated between, inside a tab in the tab navigator.
+// In this one, it is to navigate to the screen that displays a single workout and allows editing of the workout.
 const workoutStack = (workoutSettings) => createStackNavigator({
   Workout: props => <OverviewWorkoutScreen {...props} {...workoutSettings}/>,
   Details: props => <SingleWorkoutScreen {...props} {...workoutSettings}/>,

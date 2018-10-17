@@ -44,8 +44,12 @@ export default class EditObject extends React.Component {
     createDisplayFields = () => {
         const display = [];
         for (const key in this.props.propObject) {
+            // Check HasOwnProperty to avoid Object.prototype
+            // Then, check that the current part of the object that we are evaluating is not a function or object.
             if (this.props.propObject.hasOwnProperty(key) && typeof this.props.propObject[key] !== 'function' && typeof this.props.propObject[key] !== 'object') {
+                // Ensure that either exclude list is not provided or this item is not in exclude list.
                 if(!('exclude' in this.props) || 'exclude' in this.props && this.props.exclude.indexOf(key) === -1) {
+                    // If labels are enabled, add them along with the text.
                     if(this.props['labels']) {
                         display.push(
                         <View key={key+'view'}>
@@ -67,10 +71,13 @@ export default class EditObject extends React.Component {
     // If labels are present, add keys as labels!
     createInputFields = () => {
         const inputs = [];
+        // Create a new object from the provided object that has removed keys from the exclude-list.
         const editableObject = this.createEditableObject();
         for (const key in editableObject) {
             if (editableObject.hasOwnProperty(key)) {
+                // Create name for the state that will be set to save the input
                 const stateName = 'edit' + key;
+                // Check if this key is in the list of keys that should be int-only.
                 if (!('ints' in this.props) || this.props.ints.indexOf(key) === -1) {
                     if (this.props['labels']) {
                         inputs.push(
@@ -84,7 +91,9 @@ export default class EditObject extends React.Component {
                         inputs.push(<TextInput key={key} onChangeText={(text) => this.setState({[stateName]:text})} placeholder={'' + editableObject[key]}/>);
                     }
                 }
+                // If it is int-only, create specific input field
                 else {
+                    // Again, check if labels are enabled
                     if (this.props['labels']) {
                         inputs.push(
                             <View key={key+'view'}>

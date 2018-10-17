@@ -7,6 +7,7 @@ import Exercise from '../components/Exercise';
 
 export default class SingleWorkoutScreen extends React.Component {
     // This class takes an exercise as a prop and displays it nicely.
+    // Also, allows editing of fields and is for that reason used to create new workouts.
 
     createExercise = (workout) => {
         const exercisesWithEdit = workout.exercises.map((exercise,i) => { return (
@@ -18,14 +19,19 @@ export default class SingleWorkoutScreen extends React.Component {
        return exercisesWithEdit;
     }
 
+    /* 
+    If workout is sent directly to the screen, use that.
+    Else, try to get it from the parameters in navigation, which is the props passed along navigating.
+    If it cannot find it in navigation parameters, it wont try to create anything.
+    */
     navigationOrSingleRenderWorkout = () => {
-        return this.props.workout ? this.props.workout : this.props.navigation.getParam('workout');
+        return this.props.workout ? this.props.workout : this.props.navigation.getParam('workout',false);
     }
 
     render () {
         const workout = this.navigationOrSingleRenderWorkout();
-        const exercises = this.createExercise(workout);
         if (workout) {
+            const exercises = this.createExercise(workout);
             return (
             <ScrollView>
                 <View>
