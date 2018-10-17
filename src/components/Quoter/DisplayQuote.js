@@ -6,7 +6,6 @@ const text = jsonquotes[Math.floor(Math.random()*jsonquotes.length)].text;
 const author = jsonquotes[Math.floor(Math.random()*jsonquotes.length)].from;
 const dataz = text + " - " + author;
 
-console.log(dataz);
 
 class DisplayQuote extends React.Component{
     render() {
