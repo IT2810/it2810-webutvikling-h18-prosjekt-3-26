@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Button, } from 'react-native';
 
-
-
 class SettingScreen extends React.Component {
     render() {
       return (

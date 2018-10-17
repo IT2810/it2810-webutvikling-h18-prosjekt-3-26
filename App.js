@@ -1,10 +1,14 @@
 import React from 'react';
 import Navigator from './src/components/Navigator/CreateNavigator';
+import { View, StatusBar } from 'react-native'
 
 class App extends React.Component {
   render() {
     return(
-      <Navigator />
+      <React.Fragment>
+        <StatusBar hidden />
+        <Navigator />
+      </React.Fragment>
     )
   }
 }
