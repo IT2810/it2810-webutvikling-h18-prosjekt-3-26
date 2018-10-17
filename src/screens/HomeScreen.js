@@ -4,7 +4,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeCalendar from "../components/Calendar/HomeCalendar";
 import DisplayQuote from "../components/Quoter/DisplayQuote";
 
-import GlobalPedometer from "../components/Pedometer/GlobalPedometer";
+import GlobalPedometer from './../components/Pedometer/GlobalPedometer';
 
 
 class HomeScreen extends React.Component {

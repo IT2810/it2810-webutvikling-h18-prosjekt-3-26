@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 
-export default class GlobalPedometer extends React.Component{
+class GlobalPedometer extends React.Component{
   render(){
     return(
 
@@ -45,3 +45,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 });
+
+export default GlobalPedometer;

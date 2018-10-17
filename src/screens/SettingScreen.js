@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, } from 'react-native';
-import PedometerSettings from './../components/Pedometer/PedometerSettings.js'
+import PedometerSettings from './../components/Pedometer/PedometerSettings.js';
 
 
 class SettingScreen extends React.Component {

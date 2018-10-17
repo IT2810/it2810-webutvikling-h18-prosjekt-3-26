@@ -3,7 +3,7 @@ import { Alert, ScrollView, Text, Button } from 'react-native';
 import { Pedometer } from 'expo';
 
 
-export default class PedometerSettings extends React.Component {
+class PedometerSettings extends React.Component {
 
   constructor(props){
     super(props);
@@ -94,3 +94,5 @@ export default class PedometerSettings extends React.Component {
     );
   }
 }
+
+export default PedometerSettings;
