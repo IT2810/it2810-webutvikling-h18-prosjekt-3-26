@@ -1,15 +1,17 @@
   import React, { Component } from 'react';
   import { Platform, View } from 'react-native';
+  import { createStackNavigator } from 'react-navigation';
   import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
   import Icon from 'react-native-vector-icons/Ionicons';
 
   import HomeScreen from '../../screens/HomeScreen';
-  import WorkoutScreen from '../../screens/WorkoutScreen';
+  import OverviewWorkoutScreen from '../../screens/OverviewWorkoutScreen';
+  import SingleWorkoutScreen from '../../screens/SingleWorkoutScreen';
   import SettingsScreen  from '../../screens/SettingScreen';
 
 
   // Creates a navigator using an external react navigation framework.
-  export const Navigator = (home, settings) => createMaterialBottomTabNavigator(
+  export const Navigator = (home, settings, workoutSettings, routeName) => createMaterialBottomTabNavigator(
     {
       Home: {
         screen: props => <HomeScreen startDate={home.startDate} pedActivated={home.pedActivated} globalStepCount={home.globalStepCount} {...props}/>,
@@ -30,7 +32,7 @@
         }
       },
       Settings: {
-        screen: props => <SettingsScreen startDate={settings.startDate} pedActivated={settings.pedActivated} updateActivated={settings.updateActivated} updateGlobalSteps={settings.updateGlobalSteps} updatePrevGlobalSteps={settings.updatePrevGlobalSteps} {...props}/>,
+        screen: props => <SettingsScreen startDate={settings.startDate} pedActivated={settings.pedActivated} updateActivated={settings.updateActivated} updateGlobalSteps={settings.updateGlobalSteps} updatePrevGlobalSteps={settings.updatePrevGlobalSteps} forceAppUpdate={settings.forceAppUpdate} {...props}/>,
         navigationOptions: {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ tintColor, focused }) => (
@@ -42,7 +44,7 @@
     {
       shifting: false,
       backBehavior: "initialRoute",
-      initialRouteName: 'Home',
+      initialRouteName: routeName/*'Home'*/,
       activeColor: 'white',
       tabBarColor: 'blue',
       inactiveTintColor: 'black',
