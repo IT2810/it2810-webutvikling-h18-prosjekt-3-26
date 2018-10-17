@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, Text } from 'react-native';
-import WorkoutCard from '../components/WorkoutCard';
-import Workout from '../components/Workout';
+import WorkoutCard from './WorkoutCard';
+import Workout from './Workout';
 
 export default class LastWorkout extends React.Component {
 
@@ -10,7 +10,7 @@ export default class LastWorkout extends React.Component {
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        if (prevState && prevState.workout.date.getTime() !== this.state.workout.date.getTime() || this.props.bool !== prevProps.bool) {
+        if (prevState && prevState['workout'] && this.state['workout'] && prevState.workout.date.getTime() !== this.state.workout.date.getTime() || this.props.bool !== prevProps.bool) {
             this.findClosestWorkout();
         }
     }
@@ -20,11 +20,13 @@ export default class LastWorkout extends React.Component {
         try {
             const rightNow = new Date().getTime();
             let workoutKeys = await AsyncStorage.getItem('@projectum-tres:workouts');
-            workoutKeys = workoutKeys ? JSON.parse(workoutKeys) : workoutKeys;
-            const workoutTimes = workoutKeys.map(workout => workout.replace('@projectum-tres:','')).sort((a,b) => Math.abs(a-rightNow) - Math.abs(b-rightNow));
-            let newestWorkout = await AsyncStorage.getItem('@projectum-tres:'+workoutTimes[0]);
-            newestWorkout = newestWorkout ? new Workout(JSON.parse(newestWorkout)):newestWorkout;
-            this.setState({workout:newestWorkout});
+            workoutKeys = workoutKeys ? JSON.parse(workoutKeys) : false;
+            if (workoutKeys){
+                const workoutTimes = workoutKeys.map(workout => workout.replace('@projectum-tres:','')).sort((a,b) => Math.abs(a-rightNow) - Math.abs(b-rightNow));
+                let newestWorkout = await AsyncStorage.getItem('@projectum-tres:'+workoutTimes[0]);
+                newestWorkout = newestWorkout ? new Workout(JSON.parse(newestWorkout)):newestWorkout;
+                this.setState({workout:newestWorkout});
+            }
         } catch(err) {
             console.error('failed to find closest workout',err);
         }
@@ -40,6 +42,6 @@ export default class LastWorkout extends React.Component {
                 </React.Fragment>
             );
         }
-        return (<Text>No workouts added, go to overview to start one!</Text>);
+        return (<Text>No workouts added, go to Workout to start one!</Text>);
     }
 }
