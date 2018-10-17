@@ -15,6 +15,9 @@ export default class PedometerSettings extends React.Component {
     this.checkAvailability();
   }
 
+  // Function below removes the listener when pedometer is deactivated.
+  // It is later added on activation
+  // This seems to be the correct way to do it.
   _listener: { remove: () => void } = null;
 
   // Checks the users Google Fit for availability
