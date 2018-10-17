@@ -16,9 +16,9 @@ export default class OverviewWorkoutScreen extends React.Component {
     /*
     This screen is the overview for all workouts.
     It contains:
-     an add-button (at bottom? upper right?) 
+     an add-button
      cards for every workout
-     a delete button at card corner?
+     a delete button at card
 
     Workouts will be in an array
     */
@@ -60,9 +60,7 @@ export default class OverviewWorkoutScreen extends React.Component {
         // Get workout from props if we navigated here and it exists
         const workout = this.props['navigation'] ? this.props.navigation.getParam('workout',false) : false;
         if (workout){
-            // TODO: Allow edit of already existing objects.
-            // Find out why it creates duplicates.
-            if (this.state.workouts === prevState.workouts && workout !== prevProps.navigation.getParam('workout')) {
+            if (this.state.workouts === prevState.workouts && workout !== prevProps.navigation.getParam('workout', false)) {
                 this.addToDisplayedListOfWorkouts(workout, this.state.workouts.indexOf(workout));
             }
         }

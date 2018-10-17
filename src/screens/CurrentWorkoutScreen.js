@@ -35,7 +35,7 @@ export default class LastWorkout extends React.Component {
         if (workout) {
             return (
                 <React.Fragment>
-                    <Text>Newest workout</Text>
+                    <Text>Last workout</Text>
                     <WorkoutCard workout={workout} removeWorkoutDisabled navigation={this.props.navigation}/>
                 </React.Fragment>
             );
