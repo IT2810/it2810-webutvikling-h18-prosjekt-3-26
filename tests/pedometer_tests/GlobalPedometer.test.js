@@ -1,11 +1,13 @@
 // __tests__/GlobalPedometer.js
 import React from 'react';
-import GlobalPedometer from '../src/components/Pedometer/GlobalPedometer';
+import GlobalPedometer from '../../src/components/Pedometer/GlobalPedometer';
 
 import renderer from 'react-test-renderer';
 
+
+// Tests if component actually renders
 test('Renders correctly', () => {
-  const tree = renderer.create(<GlobalPedometer />).toJSON();
+  const tree = renderer.create(<GlobalPedometer/>).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
