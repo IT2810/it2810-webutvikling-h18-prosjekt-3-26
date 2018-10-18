@@ -9,7 +9,7 @@ export default class App extends React.Component {
     super(props);
 
     // States for global pedometer
-    this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0, routeName: 'Home' };
+    this.state = { startDate: new Date(), pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
   }
 
   // Sets a startDate state for this session.
