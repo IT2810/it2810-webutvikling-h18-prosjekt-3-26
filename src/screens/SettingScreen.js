@@ -11,7 +11,7 @@ class SettingScreen extends React.Component {
           <Text>Register your pedometer</Text>
 
           {/* Settings specifically for the global pedometer. */}
-          <PedometerSettings startDate={this.props.startDate} pedActivated={this.props.pedActivated} updateActivated={this.props.updateActivated} updateGlobalSteps={this.props.updateGlobalSteps} updatePrevGlobalSteps={this.props.updatePrevGlobalSteps}/>
+          <PedometerSettings startDate={this.props.startDate} pedActivated={this.props.pedActivated} updateActivated={this.props.updateActivated} updateGlobalSteps={this.props.updateGlobalSteps} updatePrevGlobalSteps={this.props.updatePrevGlobalSteps} forceAppUpdate={this.props.forceAppUpdate}/>
         </View>
       );
     }

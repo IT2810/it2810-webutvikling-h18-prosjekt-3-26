@@ -9,7 +9,7 @@ export default class App extends React.Component {
     super(props);
 
     // States for global pedometer
-    this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
+    this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0, routeName: 'Home' };
   }
 
   // Sets a startDate state for this session.
@@ -60,7 +60,7 @@ export default class App extends React.Component {
 
   // Updates previous global steps
   updatePrevGlobalSteps = (val) => {
-    this.setState({ prevGlobalStepCount: val });
+    this.setState({ prevGlobalStepCount: val, routeName: 'Home' });
   }
 
   render() {
@@ -69,7 +69,7 @@ export default class App extends React.Component {
     var homeProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
-        globalStepCount: this.state.globalStepCount
+        globalStepCount: this.state.globalStepCount,
     };
 
     var settingsProps = {
@@ -77,11 +77,16 @@ export default class App extends React.Component {
         pedActivated: this.state.pedActivated,
         updateActivated: this.updateActivated,
         updateGlobalSteps: this.updateGlobalSteps,
-        updatePrevGlobalSteps: this.updatePrevGlobalSteps
+        updatePrevGlobalSteps: this.updatePrevGlobalSteps,
+        forceAppUpdate: (route) => this.setState({routeName:route}),
+    };
+
+    const workoutProps = {
+        forceAppUpdate: (route) => this.setState({routeName:route}),
     };
 
 
-    const Nav = Navigator({...homeProps}, {...settingsProps})
+    const Nav = Navigator({...homeProps}, {...settingsProps}, {...workoutProps}, this.state.routeName)
 
     return (
 
