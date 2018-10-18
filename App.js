@@ -60,28 +60,33 @@ export default class App extends React.Component {
 
   // Updates previous global steps
   updatePrevGlobalSteps = (val) => {
-    this.setState({ prevGlobalStepCount: val });
+    this.setState({ prevGlobalStepCount: val, routeName: 'Home' });
   }
 
   render() {
 
     // For sending pedometer props to navigator
-    var homeProps = {
+    const homeProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
-        globalStepCount: this.state.globalStepCount
+        globalStepCount: this.state.globalStepCount,
     };
 
-    var settingsProps = {
+    const settingsProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
         updateActivated: this.updateActivated,
         updateGlobalSteps: this.updateGlobalSteps,
-        updatePrevGlobalSteps: this.updatePrevGlobalSteps
+        updatePrevGlobalSteps: this.updatePrevGlobalSteps,
+        forceAppUpdate: (route) => this.setState({routeName:route}),
+    };
+
+    const workoutProps = {
+        forceAppUpdate: (route) => this.setState({routeName:route}),
     };
 
 
-    const Nav = Navigator({...homeProps}, {...settingsProps})
+    const Nav = Navigator({...homeProps}, {...settingsProps}, {...workoutProps}, this.state.routeName)
 
     return (
 
