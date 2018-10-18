@@ -15,6 +15,7 @@ export default class App extends React.Component {
   // Sets a startDate state for this session.
   componentDidMount(){
     this.retrieveStartDate();
+    
   }
 
   // Save start date locally, so pedometer can check the global number of steps from that date.

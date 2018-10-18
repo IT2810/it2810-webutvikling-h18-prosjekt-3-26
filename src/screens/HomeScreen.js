@@ -16,25 +16,16 @@ class HomeScreen extends React.Component {
             </Row>
             <Row size={14}>
               <Col size={10} style={{borderWidth: 1, borderRadius: 4}}>
-                <GlobalPedometer startDate={this.props.startDate} pedActivated={this.props.pedActivated} globalStepCount={this.props.globalStepCount}/>
-              </Col>
-              <Col size={10} style={{backgroundColor: 'yellow'}}>
-              <Text>Notifications</Text>
+                <GlobalPedometer startDate={this.props.startDate}
+                 pedActivated={this.props.pedActivated} 
+                globalStepCount={this.props.globalStepCount}/>
               </Col>
             </Row>
-            <Row size={14}>
-              <Col size={10} style={{backgroundColor: 'blue'}}>
-              <Text>?????</Text>
-              </Col>
-              <Col size={10} style={{backgroundColor: 'cyan'}}>
-              <Text>??????</Text>
-              </Col>
-              </Row>
-              <Row size={7} style={{backgroundColor: 'green'}}>
-            <DisplayQuote style={{color: 'red'}} />
+              <Row size={14} style={{backgroundColor: 'green'}}>
+            <DisplayQuote style />
             </Row>
-            <Row size={30}>
-              <Col size={80} style={{backgroundColor: 'white'}}>
+            <Row size={27}>
+              <Col size={40} style={{backgroundColor: 'white'}}>
                 <HomeCalendar />
               </Col>
             </Row>
