@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigator } from './src/components/Navigator/CreateNavigator';
 import { AsyncStorage, View, StatusBar } from 'react-native';
-
+import { Font } from 'expo'
 
 export default class App extends React.Component {
 
@@ -15,7 +15,6 @@ export default class App extends React.Component {
   // Sets a startDate state for this session.
   componentDidMount(){
     this.retrieveStartDate();
-    
   }
 
   // Save start date locally, so pedometer can check the global number of steps from that date.
