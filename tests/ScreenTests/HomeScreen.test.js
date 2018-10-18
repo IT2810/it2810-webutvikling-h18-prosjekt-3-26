@@ -1,10 +1,11 @@
-import React from 'react';
-import HomeScreen from '../../src/screens/HomeScreen';
-
-import renderer from 'react-test-renderer';
+import Homescreen from '../../src/screens/HomeScreen';
 
 
-test('Renders correctly', () => {
-  const tree = renderer.create(<HomeScreen />).toJSON();
-  expect(tree).toMatchSnapshot();
+beforeEach(() => {
+    homescreencomp = new Homescreen();
+})
+
+test('homescreens gets properly created', ()=> {
+    expect(homescreencomp).toBeDefined();
+
 });
