@@ -25,7 +25,7 @@ export default class SingleWorkoutScreen extends React.Component {
     If it cannot find it in navigation parameters, it wont try to create anything.
     */
     navigationOrSingleRenderWorkout = () => {
-        return this.props.workout ? this.props.workout : this.props.navigation.getParam('workout',false);
+        return this.props.workout ? this.props.workout : this.props['navigation'] ? this.props.navigation.getParam('workout',false) : false;
     }
 
     render () {
