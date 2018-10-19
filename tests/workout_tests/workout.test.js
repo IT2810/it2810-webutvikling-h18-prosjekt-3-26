@@ -1,7 +1,7 @@
 // __tests__/workout_tests/workout.test.js
-import Workout from '../../src/components/Workout';
-import Exercise from '../../src/components/Exercise'
-jest.mock('../../src/components/Exercise');
+import Workout from '../../src/components/Workout/Workout';
+import Exercise from '../../src/components/Workout/Exercise';
+jest.mock('../../src/components/Workout/Exercise');
 
 import MockStorage from './MockStorage';
 
