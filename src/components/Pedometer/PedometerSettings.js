@@ -11,10 +11,6 @@ class PedometerSettings extends React.Component {
     this.state = { available: false, activated: this.props.pedActivated};
   }
 
-  componentDidMount(){
-    this.checkAvailability();
-  }
-
   // Function below removes the listener when pedometer is deactivated.
   // It is later added on activation
   // This seems to be the correct way to do it.
@@ -29,6 +25,8 @@ class PedometerSettings extends React.Component {
 
   // Activates recording of step count
   activatePedometer = async () => {
+
+    this.checkAvailability();
 
     // Records new steps
     if(!this.props.pedActivated){
