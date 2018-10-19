@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigator } from './src/components/Navigator/CreateNavigator';
 import { AsyncStorage, View, StatusBar } from 'react-native';
-import { Font } from 'expo'
 
 export default class App extends React.Component {
 
@@ -9,7 +8,7 @@ export default class App extends React.Component {
     super(props);
 
     // States for global pedometer
-    this.state = { startDate: null, pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0 };
+    this.state = { startDate: new Date(), pedActivated: false, globalStepCount: 0, prevGlobalStepCount: 0, routeName: 'Home' };
   }
 
   // Sets a startDate state for this session.
@@ -60,28 +59,33 @@ export default class App extends React.Component {
 
   // Updates previous global steps
   updatePrevGlobalSteps = (val) => {
-    this.setState({ prevGlobalStepCount: val });
+    this.setState({ prevGlobalStepCount: val, routeName: 'Home' });
   }
 
   render() {
 
     // For sending pedometer props to navigator
-    var homeProps = {
+    const homeProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
-        globalStepCount: this.state.globalStepCount
+        globalStepCount: this.state.globalStepCount,
     };
 
-    var settingsProps = {
+    const settingsProps = {
         startDate: this.state.startDate,
         pedActivated: this.state.pedActivated,
         updateActivated: this.updateActivated,
         updateGlobalSteps: this.updateGlobalSteps,
-        updatePrevGlobalSteps: this.updatePrevGlobalSteps
+        updatePrevGlobalSteps: this.updatePrevGlobalSteps,
+        forceAppUpdate: (route) => this.setState({routeName:route}),
+    };
+
+    const workoutProps = {
+        forceAppUpdate: (route) => this.setState({routeName:route}),
     };
 
 
-    const Nav = Navigator({...homeProps}, {...settingsProps})
+    const Nav = Navigator({...homeProps}, {...settingsProps}, {...workoutProps}, this.state.routeName)
 
     return (
 

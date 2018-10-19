@@ -38,7 +38,8 @@ class PedometerSettings extends React.Component {
 
       // Updates global state in App
       this.setState({ activated: true });
-      {this.props.updateActivated(true)};
+      this.props.forceAppUpdate('Settings');
+      this.props.updateActivated(true);
     }
   }
 
@@ -50,9 +51,9 @@ class PedometerSettings extends React.Component {
     }
 
     this.setState({ activated: false });
-
+    this.props.forceAppUpdate('Settings');
     // Updates global state in App
-    {this.props.updateActivated(false)};
+    this.props.updateActivated(false);
   }
 
   // Gets global amount of steps. Should be called through the Home, as this is the page where it is displayed.
