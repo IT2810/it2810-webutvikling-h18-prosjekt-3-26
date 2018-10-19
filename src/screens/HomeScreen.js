@@ -5,7 +5,7 @@ import HomeCalendar from "../components/Calendar/HomeCalendar";
 import DisplayQuote from "../components/Quoter/DisplayQuote";
 import { NavigationEvents } from 'react-navigation'
 import GlobalPedometer from './../components/Pedometer/GlobalPedometer';
-import LastWorkout from '../components/LastWorkout';
+import LastWorkout from '../components/Workout/LastWorkout';
 
 
 class HomeScreen extends React.Component {

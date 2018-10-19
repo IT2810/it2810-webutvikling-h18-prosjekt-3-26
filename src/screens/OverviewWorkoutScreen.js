@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, AsyncStorage, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { FAB } from 'react-native-paper';
-import WorkoutCard from '../components/WorkoutCard';
-import Workout from '../components/Workout';
+import WorkoutCard from '../components/Workout/WorkoutCard';
+import Workout from '../components/Workout/Workout';
 
 export default class OverviewWorkoutScreen extends React.Component {
     constructor(props){
@@ -24,7 +24,6 @@ export default class OverviewWorkoutScreen extends React.Component {
     */
 
     componentDidMount = () => {
-        this.setState({loading:true});
         this.loadWorkoutsFromAsyncStorage();
     }
 
@@ -53,7 +52,7 @@ export default class OverviewWorkoutScreen extends React.Component {
 
     // Creates a new workout and returns a button that takes the user to an edit-screen.
     addWorkout = () => {
-        return <FAB icon="add" onPress={() =>{this.props.navigation.push('Details',{workout:new Workout()})}} label={'Start workout'}/>;
+        return <FAB icon="add" onPress={() =>{this.props.navigation.push('Details',{workout:new Workout()})}} label={'Create Workout'} />;
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -111,18 +110,10 @@ export default class OverviewWorkoutScreen extends React.Component {
             </ScrollView>
             );
         }
-        if (this.state.loading) {
-            return (
-                <View style={{flexDirection:'column',justifyContent:'center',alignItems:'center',height:500}}>
-                    <Text>Loading workouts...</Text>
-                    <ActivityIndicator size='large' color='#0000FF'/>
-                </View>
-            );
-        }
         return (
-            <View>
+            <View style={{display: "flex", justifyContent: "center", alignContent: "center"}}>
                 {this.addWorkout()}
-                <Text>Found no workouts</Text>
+                <Text style={{alignSelf: "center"}}>Found no workouts!</Text>
             </View>
         );
     }
