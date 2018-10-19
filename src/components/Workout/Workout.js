@@ -1,4 +1,3 @@
-import { getFromStorage } from '../utils/asyncstorageUtils';
 import { AsyncStorage } from 'react-native';
 import Exercise from './Exercise';
 

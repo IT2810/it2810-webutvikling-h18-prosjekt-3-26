@@ -7,11 +7,13 @@ const author = jsonquotes[Math.floor(Math.random()*jsonquotes.length)].from;
 const dataz = text + " - " + author;
 
 
+
 class DisplayQuote extends React.Component{
     render() {
         return(
-            <View style={{display:"flex",justifyContent:"center",}}>
-                <Text style={{color: 'white'}}>
+            
+            <View style={{display: "flex",flex:1, alignContent: "flex-end", alignItems: "center", justifyContent:"center"}}>
+                <Text style={{color: 'black',fontStyle:'italic' ,textAlign:"center"}}>
                    {dataz}
                 </Text>
             </View>

@@ -6,8 +6,8 @@ import PedometerSettings from './../components/Pedometer/PedometerSettings.js';
 class SettingScreen extends React.Component {
     render() {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
-          <Text>Settings</Text>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{fontSize: 30}}>Settings</Text>
           <Text>Register your pedometer</Text>
 
           {/* Settings specifically for the global pedometer. */}

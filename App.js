@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigator } from './src/components/Navigator/CreateNavigator';
 import { AsyncStorage, View, StatusBar } from 'react-native';
 
-
 export default class App extends React.Component {
 
   constructor(props){

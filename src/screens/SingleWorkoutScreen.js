@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Button } from "react-native-paper";
-import ObjectEdit from '../components/EditObject';
-import Exercise from '../components/Exercise';
+import ObjectEdit from '../components/Workout/EditObject';
+import Exercise from '../components/Workout/Exercise';
 
 
 export default class SingleWorkoutScreen extends React.Component {

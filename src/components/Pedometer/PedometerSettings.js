@@ -78,7 +78,7 @@ class PedometerSettings extends React.Component {
     return (
 
       <ScrollView style={{ padding: 10, margin: 5 }}>
-        {this.state.activated ? <Text>Du har aktivert pedometeret i applikasjonen</Text> : <Text>Du har ikke aktivert pedometeret i applikasjonen</Text>}
+        {this.state.activated ? <Text>Pedometer Activated!</Text> : <Text>Pedometer is not activated.</Text>}
 
         <Button
           onPress={() => this.activatePedometer()}
